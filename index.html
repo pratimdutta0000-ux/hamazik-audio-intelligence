@@ -25,7 +25,8 @@ input[type=file]{display:none}
 .status{display:flex;justify-content:space-between;gap:10px;color:#98a1b0;font-size:12px;margin-top:11px}.progress{height:5px;background:#252b35;border-radius:10px;overflow:hidden;margin-top:9px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 .section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}.section-title h3{font-family:"Space Grotesk";margin:0;font-size:15px}.section-title span{font-size:10px;color:#70798a;text-transform:uppercase;letter-spacing:.12em}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.metric{background:#0b0f15;border:1px solid #222a35;border-radius:12px;padding:13px;position:relative;overflow:hidden}.metric:first-child,.metric:nth-child(2){background:linear-gradient(135deg,rgba(139,92,246,.13),rgba(10,14,20,.9))}
-.label{font-size:10px;color:#737d8e;letter-spacing:.08em;text-transform:uppercase}.value{font-family:"Space Grotesk";font-size:21px;font-weight:700;margin-top:5px}
+.label{font-size:10px;color:#737d8e;letter-spacing:.08em;text-transform:uppercase}.value{font-family:"Space Grotesk";font-size:21px;font-weight:700;margin-top:5px}.metric.wide{grid-column:span 2}.subvalue{font-size:11px;color:#9da6b5;line-height:1.45;margin-top:6px}.scale-detail{font-size:11px;color:#9da6b5;line-height:1.45;margin-top:5px}.meterline{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#cbd2dc;margin-top:7px}.meterline b{color:#fff}.dualbar{height:7px;border-radius:99px;background:#202631;overflow:hidden;margin-top:6px;display:flex}.dualbar .major{background:#8b5cf6;height:100%}.dualbar .minor{background:#22d3ee;height:100%}.chord-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.chord-pill{padding:6px 9px;border:1px solid #303847;border-radius:999px;background:#0b0f15;color:#e5e9f0;font-size:11px;font-weight:700}
+ .chord-panel{min-width:0}.chord-roll-wrap{margin-top:9px;overflow-x:auto;border:1px solid #202631;border-radius:10px;background:#070a0f}.chord-roll-wrap canvas{display:block;width:100%;min-width:720px;height:250px;border:0;border-radius:0}.chord-roll-status{font-size:11px;color:#8f99aa;margin-top:7px}
 canvas{width:100%;height:260px;background:#090c11;border:1px solid #202631;border-radius:11px}
 .timeline-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px}
 .timeline-tools .btn{padding:7px 10px;font-size:11px}
@@ -76,8 +77,10 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px so
   <div class="section-title"><h3>ANALYSIS</h3><span>Live results</span></div>
   <div class="grid">
     <div class="metric"><div class="label">Key</div><div class="value" id="key">—</div></div>
-    <div class="metric"><div class="label">Scale / Mode</div><div class="value" id="scale">—</div></div>
+    <div class="metric"><div class="label">Scale / Mode</div><div class="value" id="scale">—</div><div class="scale-detail" id="scaleDetail">—</div></div>
     <div class="metric"><div class="label">Key Confidence</div><div class="value" id="kconf">—</div></div>
+    <div class="metric wide"><div class="label">Major / Minor Closeness</div><div class="meterline"><span>Major <b id="majorPct">—</b></span><span>Minor <b id="minorPct">—</b></span></div><div class="dualbar"><div class="major" id="majorBar" style="width:50%"></div><div class="minor" id="minorBar" style="width:50%"></div></div><div class="subvalue" id="closenessNote">Estimated tonal relationship</div></div>
+    <div class="metric wide chord-panel"><div class="label">Main Chords · Piano Roll</div><div class="chord-roll-wrap"><canvas id="chordRoll" width="900" height="250" aria-label="Detected chord piano roll"></canvas></div><div class="chord-roll-status" id="chordRollStatus">Scan a track to estimate chords.</div></div>
     <div class="metric"><div class="label">Current Note</div><div class="value" id="cur">—</div></div>
     <div class="metric"><div class="label">Frequency</div><div class="value" id="freq">—</div></div>
     <div class="metric"><div class="label">Pitch Confidence</div><div class="value" id="pconf">—</div></div>
@@ -187,8 +190,13 @@ function analyze(b){
    if(i%10===0)$('bar').style.width=(100*i/count).toFixed(1)+'%';
  }
  const k=keyDetect(chroma);
- $('key').textContent=N[k.root]+' '+k.displayMode;
+ $('key').textContent=N[k.root];
  $('scale').textContent=k.name;
+ $('scaleDetail').textContent=k.description;
+ $('majorPct').textContent=k.majorMinor.major+'%'; $('minorPct').textContent=k.majorMinor.minor+'%';
+ $('majorBar').style.width=k.majorMinor.major+'%'; $('minorBar').style.width=k.majorMinor.minor+'%';
+ $('closenessNote').textContent=k.majorMinor.major>=k.majorMinor.minor?'Closer to a major tonal profile':'Closer to a minor tonal profile';
+ window.lastKeyRoot=k.root; renderMainChords(k.root);
  $('kconf').textContent=k.confidence+'%';
  $('frames').textContent=frames.length;detectNotes();prepareSpectrum();drawTimeline();estimateRhythm(x,sr);$('midi').disabled=!notes.length;
  $('status').innerHTML=`<span>Scan complete — ${frames.length} voiced pitch frames</span><span>${fileName}</span>`;
@@ -221,6 +229,58 @@ function scaleScore(h,intervals,root){
  // complexity prior so an unnecessarily large scale does not always win.
  return corr*.58+coverage*.32+Math.min(.07,tonic*.45)+Math.min(.03,fifth*.16)-Math.max(0,tones-8)*.004;
 }
+function cosine(a,b){let ab=0,aa=0,bb=0;for(let i=0;i<12;i++){ab+=a[i]*b[i];aa+=a[i]*a[i];bb+=b[i]*b[i]}return ab/Math.sqrt((aa||1)*(bb||1))}
+function scaleDescription(name,intervals){
+ const major=[0,2,4,5,7,9,11], minor=[0,2,3,5,7,8,10];
+ const set=new Set(intervals), majSet=new Set(major), minSet=new Set(minor);
+ const overlapMaj=major.filter(x=>set.has(x)).length/major.length, overlapMin=minor.filter(x=>set.has(x)).length/minor.length;
+ const base=overlapMaj>=overlapMin?'Major':'Minor';
+ const ref=base==='Major'?major:minor;
+ const added=intervals.filter(x=>!ref.includes(x)).sort((a,b)=>a-b);
+ const removed=ref.filter(x=>!set.has(x)).sort((a,b)=>a-b);
+ const degNames=['1','b2/♭2','2','b3/♭3','3','4','b5/♭5','5','b6/♭6','6','b7/♭7','7'];
+ if(name==='Major'||name==='Ionian') return 'Major scale';
+ if(name==='Natural Minor'||name==='Aeolian') return 'Minor scale';
+ if(name==='Dorian') return 'Minor scale with raised 6th';
+ if(name==='Phrygian') return 'Minor scale with flattened 2nd';
+ if(name==='Lydian') return 'Major scale with raised 4th';
+ if(name==='Mixolydian') return 'Major scale with flattened 7th';
+ if(name==='Locrian') return 'Minor scale with flattened 2nd and 5th';
+ if(name==='Harmonic Minor') return 'Minor scale with raised 7th';
+ if(name==='Melodic Minor') return 'Minor scale with raised 6th and 7th';
+ if(name==='Harmonic Major') return 'Major scale with flattened 6th';
+ if(name==='Double Harmonic Major') return 'Major-type scale with flattened 2nd and 6th';
+ if(name==='Major Pentatonic') return 'Major pentatonic scale';
+ if(name==='Minor Pentatonic') return 'Minor pentatonic scale';
+ if(name==='Blues') return 'Minor-blues type scale';
+ if(name==='Whole Tone') return 'Symmetric six-note scale';
+ if(name.includes('Diminished')) return 'Symmetric diminished scale';
+ if(name==='Chromatic') return 'All 12 chromatic notes';
+ if(name==='Augmented') return 'Symmetric augmented scale';
+ if(name==='Tritone') return 'Symmetric six-note scale';
+ if(name==='Acoustic') return 'Major-type scale with raised 4th and flattened 7th';
+ if(name==='Altered'||name==='Super Locrian') return 'Minor/major-dominant altered scale with flattened 2nd, 3rd, 5th and 6th';
+ if(name==='Lydian Dominant') return 'Major scale with raised 4th and flattened 7th';
+ if(name==='Mixolydian b6') return 'Major scale with flattened 6th and 7th';
+ if(name==='Dorian b2') return 'Minor scale with flattened 2nd and raised 6th';
+ if(name==='Phrygian Dominant') return 'Major-type scale with flattened 2nd, 6th and 7th';
+ if(name==='Lydian Augmented'||name==='Lydian #5') return 'Major scale with raised 4th and raised 5th';
+ if(name==='Locrian Natural 6') return 'Minor scale with flattened 2nd and 5th, raised 6th';
+ if(name.includes('Bebop')) return base+'-type bebop scale';
+ if(name.includes('Pentatonic')) return base+' pentatonic scale';
+ if(name.includes('Hindustani')||name.includes('Carnatic')||name.includes('Maqam')) return base+'-type '+name+' pitch set';
+ if(name==='Pelog'||name==='Balinese'||name==='Japanese'||name==='Japanese Kumoi'||name==='Japanese Iwato'||name==='Hirajoshi'||name==='In Sen'||name==='Yo'||name==='Iwato'||name==='Kumoi') return base+'-type '+name+' scale';
+ if(added.length||removed.length){
+   const a=added.map(x=>degNames[x]).join(', '), r=removed.map(x=>degNames[x]).join(', ');
+   return base+' scale'+(a?' with added '+a:'')+(r?' and omitted '+r:'');
+ }
+ return base+'-type scale';
+}
+function majorMinorCloseness(h,root){
+ const major=rotateProfile(SCALE_LIBRARY['Major'],root), minor=rotateProfile(SCALE_LIBRARY['Natural Minor'],root);
+ const maj=cosine(h,major), min=cosine(h,minor), em=Math.exp(maj*5), en=Math.exp(min*5), sum=em+en;
+ return {major:Math.round(em/sum*100),minor:Math.round(en/sum*100)};
+}
 function keyDetect(c){
  const total=c.reduce((a,v)=>a+v,0)||1;const h=c.map(v=>v/total);
  const candidates=[];
@@ -231,15 +291,73 @@ function keyDetect(c){
  candidates.sort((a,b)=>b.score-a.score);
  const best=candidates[0],second=candidates[1]||best;
  const margin=Math.max(0,best.score-second.score);
- // Confidence is deliberately conservative. Similar scales/modes and ambiguous
- // songs should report lower confidence instead of pretending to know exactly.
  const confidence=Math.round(clamp(.45+margin*4.5+Math.max(0,best.score)*.45,0,.99)*100);
  best.confidence=confidence;best.margin=margin;
- const minor=MINOR_NAMES.has(best.name);
- best.displayMode=(minor?'Minor':best.name);
- // Familiar key wording for the common scales; modes retain their actual mode.
+ best.description=scaleDescription(best.name,best.intervals);
+ best.majorMinor=majorMinorCloseness(h,best.root);
  return best;
 }
+function chordTemplate(root,type){
+ const sets={maj:[0,4,7],min:[0,3,7],dim:[0,3,6],sus2:[0,2,7],sus4:[0,5,7],dom7:[0,4,7,10],maj7:[0,4,7,11],min7:[0,3,7,10]};
+ return sets[type].map(x=>(root+x)%12);
+}
+function chordScore(h,root,type){
+ const pcs=chordTemplate(root,type),set=new Set(pcs);let inE=0,outE=0;for(let i=0;i<12;i++)set.has(i)?inE+=h[i]:outE+=h[i];return inE/(inE+outE+1e-9)-outE*.18;
+}
+function chordPianoCandidates(keyRoot){
+ if(!frames.length||!buf)return [];
+ const types=[['maj',''],['min','m'],['dom7','7'],['maj7','maj7'],['min7','m7'],['sus2','sus2'],['sus4','sus4'],['dim','dim']];
+ const dur=buf.duration||0, win=Math.max(.7,Math.min(2.0,dur/8)), hop=Math.max(.35,win*.55), out=[];
+ for(let start=0;start<dur;start+=hop){
+   const h=new Float64Array(12);let n=0;
+   for(const f of frames){if(f.t>=start&&f.t<Math.min(dur,start+win)&&f.cf>.35){h[f.pc]+=f.r*f.cf;n++}}
+   if(n<2)continue;
+   let best=null;
+   for(let r=0;r<12;r++)for(const [type,suf] of types){
+     const sc=chordScore(h,r,type);
+     if(!best||sc>best.score)best={root:r,type,suf,score:sc,label:N[r]+suf};
+   }
+   if(best&&best.score>.08)out.push({start,end:Math.min(dur,start+win),...best});
+ }
+ // Merge consecutive regions carrying the same estimated chord.
+ const merged=[];
+ for(const c of out){const z=merged[merged.length-1];if(z&&z.label===c.label&&c.start-z.end<Math.max(.25,hop*.7))z.end=c.end;else merged.push({...c})}
+ return merged.filter(c=>c.end-c.start>=Math.min(.35,Math.max(.18,win*.35)));
+}
+function drawChordPianoRoll(keyRoot){
+ const c=$('chordRoll'),status=$('chordRollStatus'); if(!c)return;
+ const dur=Math.max(.1,buf?.duration||1), chords=chordPianoCandidates(keyRoot), w=Math.max(900,Math.round(Math.max(1,dur)*90)), h=250;
+ c.width=w;c.height=h;c.style.width=w+'px';
+ const g=c.getContext('2d');g.clearRect(0,0,w,h);g.fillStyle='#070a0f';g.fillRect(0,0,w,h);
+ const lo=48,hi=84, rowH=(h-36)/(hi-lo+1), xOf=t=>t/dur*w;
+ g.font='10px Inter,sans-serif';
+ for(let mi=lo;mi<=hi;mi++){
+   const y=28+(hi-mi)*rowH, pc=((mi%12)+12)%12, black=[1,3,6,8,10].includes(pc);
+   g.fillStyle=black?'#111722':'#0b1017';g.fillRect(0,y,w,rowH);
+   g.strokeStyle=black?'#1b2330':'#202936';g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();
+   if(!black){g.fillStyle='#687385';g.fillText(noteName(mi),6,y+rowH-3)}
+ }
+ g.fillStyle='#c8ced8';g.font='700 10px Inter,sans-serif';g.fillText('PIANO ROLL · DETECTED CHORDS',8,12);
+ const step=dur>45?10:dur>20?5:2;g.font='9px Inter,sans-serif';
+ for(let t=0;t<=dur;t+=step){const x=xOf(t);g.strokeStyle='#252d38';g.beginPath();g.moveTo(x,20);g.lineTo(x,h);g.stroke();g.fillStyle='#697486';g.fillText(fmtShort(t),x+3,20)}
+ const pal=['#8b5cf6','#22d3ee','#34d399','#f59e0b','#f472b6','#60a5fa','#a3e635','#fb7185'];
+ chords.forEach((ch,idx)=>{
+   const x=xOf(ch.start),ww=Math.max(3,xOf(ch.end)-x),color=pal[idx%pal.length];
+   const pcs=chordTemplate(ch.root,ch.type);
+   // Render a compact voicing in a useful mid-register.
+   pcs.forEach((pc,j)=>{
+     let mi=60+((pc-0+12)%12); if(mi<lo)mi+=12; if(mi>hi)mi-=12;
+     const y=28+(hi-mi)*rowH+1;
+     g.fillStyle=color;g.globalAlpha=.82;g.fillRect(x,y,ww,Math.max(5,rowH-2));g.globalAlpha=1;
+   });
+   if(ww>42){g.fillStyle='#fff';g.font='700 10px Inter,sans-serif';g.fillText(ch.label,x+4,34+(hi-60)*rowH)}
+ });
+ // Playback cursor
+ const px=xOf($('audio').currentTime||0);g.strokeStyle='#34d399';g.lineWidth=2;g.beginPath();g.moveTo(px,20);g.lineTo(px,h);g.stroke();
+ status.textContent=chords.length?`${chords.length} detected chord regions · ${[...new Set(chords.map(x=>x.label))].join(' · ')}`:'Not enough harmonic content for reliable chord estimation.';
+}
+function renderMainChords(keyRoot){drawChordPianoRoll(keyRoot)}
+
 function detectNotes(){
  notes=[];if(!frames.length)return;let cur=null;
  for(const f of frames){
@@ -308,6 +426,7 @@ function drawTimeline(){
 }
 function seekFromTimeline(ev){if(!buf)return;const r=$("timeline").getBoundingClientRect(),x=clamp(ev.clientX-r.left,0,r.width);$("audio").currentTime=x/r.width*buf.duration;drawTimeline()}
 $("timeline").addEventListener("click",seekFromTimeline);
+$("audio").addEventListener("timeupdate",()=>{if(frames.length)drawChordPianoRoll(window.lastKeyRoot??0)});
 $("zoomIn").onclick=()=>setZoom(zoom*1.7);$("zoomOut").onclick=()=>setZoom(zoom/1.7);$("zoomFit").onclick=()=>setZoom(1);
 $("centerPlayhead").onclick=()=>{const sc=$("timelineScroll"),dur=buf?.duration||1,w=$("timeline").width;sc.scrollLeft=clamp(($("audio").currentTime/dur*w)-sc.clientWidth/2,0,Math.max(0,w-sc.clientWidth))};
 function setZoom(z){const oldW=$("timeline").width||1,sc=$("timelineScroll"),ratio=(sc.scrollLeft+sc.clientWidth/2)/oldW;zoom=clamp(z,1,24);resizeTimeline();drawTimeline();sc.scrollLeft=clamp(ratio*$("timeline").width-sc.clientWidth/2,0,Math.max(0,$("timeline").width-sc.clientWidth));$("zoomReadout").textContent=zoom.toFixed(1)+"×"}
