@@ -26,7 +26,7 @@ input[type=file]{display:none}
 .section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}.section-title h3{font-family:"Space Grotesk";margin:0;font-size:15px}.section-title span{font-size:10px;color:#70798a;text-transform:uppercase;letter-spacing:.12em}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.metric{background:#0b0f15;border:1px solid #222a35;border-radius:12px;padding:13px;position:relative;overflow:hidden}.metric:first-child,.metric:nth-child(2){background:linear-gradient(135deg,rgba(139,92,246,.13),rgba(10,14,20,.9))}
 .label{font-size:10px;color:#737d8e;letter-spacing:.08em;text-transform:uppercase}.value{font-family:"Space Grotesk";font-size:21px;font-weight:700;margin-top:5px}.metric.wide{grid-column:span 2} .alternative-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.alternative-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid #2b3442;border-radius:8px;background:rgba(255,255,255,.025);font-size:11px;color:#cbd3df}.alternative-item em{font-style:normal;color:#7ee7f5;font-size:10px}.subvalue{font-size:11px;color:#9da6b5;line-height:1.45;margin-top:6px}.scale-detail{font-size:11px;color:#9da6b5;line-height:1.45;margin-top:5px}.meterline{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#cbd2dc;margin-top:7px}.meterline b{color:#fff}.dualbar{height:7px;border-radius:99px;background:#202631;overflow:hidden;margin-top:6px;display:flex}.dualbar .major{background:#8b5cf6;height:100%}.dualbar .minor{background:#22d3ee;height:100%}.chord-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.chord-pill{padding:6px 9px;border:1px solid #303847;border-radius:999px;background:#0b0f15;color:#e5e9f0;font-size:11px;font-weight:700}
- .chord-panel{min-width:0}.chord-roll-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:8px}.chord-roll-tools .btn{padding:7px 10px;font-size:11px}.chord-roll-wrap{margin-top:9px;overflow-x:auto;border:1px solid #202631;border-radius:10px;background:#070a0f;scrollbar-color:#3b4555 #0b0f15}.chord-roll-wrap canvas{display:block;width:auto;min-width:720px;height:250px;border:0;border-radius:0;cursor:pointer}.chord-roll-status{font-size:11px;color:#8f99aa;margin-top:7px}
+ .chord-panel{min-width:0}.chord-roll-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:8px}.chord-roll-tools .btn{padding:7px 10px;font-size:11px}.chord-roll-wrap{margin-top:9px;overflow-x:auto;border:1px solid #202631;border-radius:10px;background:#070a0f;scrollbar-color:#3b4555 #0b0f15}.chord-roll-wrap canvas{display:block;width:auto;min-width:0;height:250px;border:0;border-radius:0;cursor:pointer}.chord-roll-world{position:relative;height:250px;flex:0 0 auto}.chord-roll-status{font-size:11px;color:#8f99aa;margin-top:7px}
 canvas{width:100%;height:260px;background:#090c11;border:1px solid #202631;border-radius:11px}
 .timeline-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px}
 .timeline-tools .btn{padding:7px 10px;font-size:11px}
@@ -223,7 +223,7 @@ function updatePlaybackCursor(){
   const dur=Math.max(.1,buf.duration),t=clamp(a.currentTime,0,dur),ratio=t/dur;
   const tc=$("timeline"),cc=$("chordRoll");
   if(tc&&$("timelinePlayhead")) $("timelinePlayhead").style.transform=`translateX(${ratio*tc.width}px)`;
-  if(cc&&$("chordPlayhead")) $("chordPlayhead").style.transform=`translateX(${ratio*cc.width}px)`;
+  if(cc&&$("chordPlayhead")) $("chordPlayhead").style.transform=`translateX(${ratio*(chordWorldWidth||cc.width)}px)`;
   updateChordFollow();
 }
 function syncPlaybackVisuals(){
@@ -524,28 +524,59 @@ function chordPianoCandidates(keyRoot){
  for(const c of out){const z=merged[merged.length-1];if(z&&z.label===c.label&&c.start-z.end<Math.max(.25,hop*.7))z.end=c.end;else merged.push({...c})}
  return merged.filter(c=>c.end-c.start>=Math.min(.35,Math.max(.18,win*.35)));
 }
-let chordZoom=1, chordRaf=0, chordFollow=true;
-function chordRollWidth(dur){return Math.max($('chordRollWrap')?.clientWidth||720,Math.round(Math.max(1,dur)*90*chordZoom))}
+let chordZoom=1, chordRaf=0, chordFollow=true, chordWorldWidth=720;
+function chordRollWidth(dur){
+  const base=Math.max(720,Math.min(1600,dur*90));
+  return Math.max($('chordRollWrap')?.clientWidth||720,Math.round(base*chordZoom));
+}
+function resizeChordRoll(){
+  const c=$('chordRoll'),wrap=$('chordRollWrap'),dur=Math.max(.1,buf?.duration||1);
+  if(!c||!wrap)return;
+  const w=chordRollWidth(dur);
+  chordWorldWidth=w;
+  c.width=w;c.height=250;c.style.width=w+'px';c.style.height='250px';
+}
 function drawChordPianoRoll(keyRoot){
- const c=$('chordRoll'),status=$('chordRollStatus'); if(!c)return;
- const dur=Math.max(.1,buf?.duration||1), chords=chordPianoCandidates(keyRoot), w=chordRollWidth(dur), h=250;
- c.width=w;c.height=h;c.style.width=w+'px';
- const g=c.getContext('2d');g.clearRect(0,0,w,h);g.fillStyle='#070a0f';g.fillRect(0,0,w,h);
- const lo=48,hi=84,rowH=(h-36)/(hi-lo+1),xOf=t=>t/dur*w;
- g.font='10px Inter,sans-serif';
- for(let mi=lo;mi<=hi;mi++){const y=28+(hi-mi)*rowH,pc=((mi%12)+12)%12,black=[1,3,6,8,10].includes(pc);g.fillStyle=black?'#111722':'#0b1017';g.fillRect(0,y,w,rowH);g.strokeStyle=black?'#1b2330':'#202936';g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();if(!black){g.fillStyle='#687385';g.fillText(noteName(mi),6,y+rowH-3)}}
+ const wrap=$('chordRollWrap'),status=$('chordRollStatus'),c=$('chordRoll'); if(!wrap||!c)return;
+ const dur=Math.max(.1,buf?.duration||1), chords=chordPianoCandidates(keyRoot), worldW=chordRollWidth(dur), h=250, lo=55, hi=75;
+ chordWorldWidth=worldW;
+ resizeChordRoll();
+ const g=c.getContext('2d');
+ g.clearRect(0,0,worldW,h);g.fillStyle='#070a0f';g.fillRect(0,0,worldW,h);
+ const rowH=(h-36)/(hi-lo+1), xOf=t=>t/dur*worldW;
+ for(let mi=lo;mi<=hi;mi++){
+   const y=28+(hi-mi)*rowH,pc=((mi%12)+12)%12,black=[1,3,6,8,10].includes(pc);
+   g.fillStyle=black?'#111722':'#0b1017';g.fillRect(0,y,worldW,rowH);
+   g.strokeStyle=black?'#1b2330':'#202936';g.beginPath();g.moveTo(0,y);g.lineTo(worldW,y);g.stroke();
+   if(!black){g.fillStyle='#687385';g.font='9px Inter,sans-serif';g.fillText(noteName(mi),6,y+rowH-3)}
+ }
  g.fillStyle='#c8ced8';g.font='700 10px Inter,sans-serif';g.fillText('PIANO ROLL · DETECTED CHORDS',8,12);
- const step=chordZoom>=8?.5:chordZoom>=4?1:chordZoom>=2?2:(dur>45?10:dur>20?5:2);g.font='9px Inter,sans-serif';
- for(let t=0;t<=dur;t+=step){const x=xOf(t);g.strokeStyle='#252d38';g.beginPath();g.moveTo(x,20);g.lineTo(x,h);g.stroke();g.fillStyle='#697486';g.fillText(fmtShort(t),x+3,20)}
+ const step=chordZoom>=8?.5:chordZoom>=4?1:chordZoom>=2?2:(dur>45?10:dur>20?5:2);
+ g.font='9px Inter,sans-serif';g.strokeStyle='#252d38';g.lineWidth=1;
+ for(let tt=0;tt<=dur+step;tt+=step){const x=xOf(tt);g.beginPath();g.moveTo(x,20);g.lineTo(x,h);g.stroke();g.fillStyle='#697486';g.fillText(fmtShort(tt),x+3,20)}
  const pal=['#8b5cf6','#22d3ee','#34d399','#f59e0b','#f472b6','#60a5fa','#a3e635','#fb7185'];
- chords.forEach((ch,idx)=>{const x=xOf(ch.start),ww=Math.max(3,xOf(ch.end)-x),color=pal[idx%pal.length],pcs=chordTemplate(ch.root,ch.type);pcs.forEach(pc=>{let mi=60+((pc%12+12)%12);if(mi<lo)mi+=12;if(mi>hi)mi-=12;const y=28+(hi-mi)*rowH+1;g.fillStyle=color;g.globalAlpha=.82;g.fillRect(x,y,ww,Math.max(5,rowH-2));g.globalAlpha=1});if(ww>42){g.fillStyle='#fff';g.font='700 10px Inter,sans-serif';g.fillText(ch.label,x+4,34+(hi-60)*rowH)}});
- const t=$('audio').currentTime||0,px=xOf(t);g.strokeStyle='#34d399';g.lineWidth=2;g.beginPath();g.moveTo(px,20);g.lineTo(px,h);g.stroke();g.fillStyle='#34d399';g.beginPath();g.moveTo(px-5,20);g.lineTo(px+5,20);g.lineTo(px,27);g.closePath();g.fill();
+ chords.forEach((ch,idx)=>{
+   const x=xOf(ch.start),end=xOf(ch.end),ww=Math.max(3,end-x),color=pal[idx%pal.length];
+   const pcs=chordTemplate(ch.root,ch.type);
+   pcs.forEach(pc=>{
+     let mi=60+((pc%12+12)%12);while(mi<lo)mi+=12;while(mi>hi)mi-=12;
+     const y=28+(hi-mi)*rowH+1,rw=Math.max(1,end-x);
+     g.fillStyle=color;g.globalAlpha=.82;g.fillRect(x,y,rw,Math.max(5,rowH-2));g.globalAlpha=1;
+   });
+   if(ww>42){g.fillStyle='#fff';g.font='700 10px Inter,sans-serif';g.fillText(ch.label,x+4,34+(hi-60)*rowH)}
+ });
+ const now=$('audio').currentTime||0,px=xOf(now);g.strokeStyle='#34d399';g.lineWidth=2;g.beginPath();g.moveTo(px,20);g.lineTo(px,h);g.stroke();g.fillStyle='#34d399';g.beginPath();g.moveTo(px-5,20);g.lineTo(px+5,20);g.lineTo(px,27);g.closePath();g.fill();
  status.textContent=chords.length?`${chords.length} detected chord regions · ${[...new Set(chords.map(x=>x.label))].join(' · ')}`:'Not enough harmonic content for reliable chord estimation.';
 }
-function updateChordFollow(){const a=$('audio'),wrap=$('chordRollWrap'),c=$('chordRoll');if(!a||!wrap||!c||!buf)return;const px=(a.currentTime/Math.max(.1,buf.duration))*c.width;if(chordFollow&&!a.paused&&!a.ended){wrap.scrollLeft=clamp(px-wrap.clientWidth*.5,0,Math.max(0,c.width-wrap.clientWidth))}}
-function setChordZoom(z){const wrap=$('chordRollWrap'),oldW=$('chordRoll').width||1,oldCenter=wrap.scrollLeft+wrap.clientWidth/2;chordZoom=clamp(z,1,24);drawChordPianoRoll(window.lastKeyRoot??0);updatePlaybackCursor();const nw=$('chordRoll').width||oldW;wrap.scrollLeft=clamp((oldCenter/oldW)*nw-wrap.clientWidth/2,0,Math.max(0,nw-wrap.clientWidth));$('chordZoomReadout').textContent=chordZoom.toFixed(1)+'×'}
-function seekChordRoll(ev){if(!buf)return;const c=$('chordRoll'),r=c.getBoundingClientRect(),x=clamp(ev.clientX-r.left,0,c.width);$('audio').currentTime=x/c.width*buf.duration;chordFollow=true;drawTimeline();drawChordPianoRoll(window.lastKeyRoot??0);updateChordFollow()}
-$('chordRoll').addEventListener('click',seekChordRoll);$('chordZoomIn').onclick=()=>setChordZoom(chordZoom*1.7);$('chordZoomOut').onclick=()=>setChordZoom(chordZoom/1.7);$('chordZoomFit').onclick=()=>setChordZoom(1);$('chordCenterPlayhead').onclick=()=>{chordFollow=true;updateChordFollow()};
+function updateChordFollow(){const a=$('audio'),wrap=$('chordRollWrap');if(!a||!wrap||!buf)return;const px=(a.currentTime/Math.max(.1,buf.duration))*chordWorldWidth;if(chordFollow&&!a.paused&&!a.ended){wrap.scrollLeft=clamp(px-wrap.clientWidth*.5,0,Math.max(0,chordWorldWidth-wrap.clientWidth))}}
+function setChordZoom(z){
+ const wrap=$('chordRollWrap'),oldW=chordWorldWidth||1,oldCenter=wrap.scrollLeft+wrap.clientWidth/2;
+ chordZoom=clamp(z,1,24);drawChordPianoRoll(window.lastKeyRoot??0);updatePlaybackCursor();
+ const nw=chordWorldWidth||oldW;wrap.scrollLeft=clamp((oldCenter/oldW)*nw-wrap.clientWidth/2,0,Math.max(0,nw-wrap.clientWidth));
+ $('chordZoomReadout').textContent=chordZoom.toFixed(1)+'×';
+}
+function seekChordRoll(ev){if(!buf)return;const wrap=$('chordRollWrap'),r=wrap.getBoundingClientRect(),x=clamp(ev.clientX-r.left+wrap.scrollLeft,0,chordWorldWidth);$('audio').currentTime=x/Math.max(1,chordWorldWidth)*buf.duration;chordFollow=true;drawTimeline();drawChordPianoRoll(window.lastKeyRoot??0);updateChordFollow()}
+$('chordRollWrap').addEventListener('click',seekChordRoll);$('chordZoomIn').onclick=()=>setChordZoom(chordZoom*1.7);$('chordZoomOut').onclick=()=>setChordZoom(chordZoom/1.7);$('chordZoomFit').onclick=()=>setChordZoom(1);$('chordCenterPlayhead').onclick=()=>{chordFollow=true;updateChordFollow()};
 function renderMainChords(keyRoot){drawChordPianoRoll(keyRoot);updateChordFollow()}
 function detectNotes(){
  notes=[];if(!frames.length)return;let cur=null;
