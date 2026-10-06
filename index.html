@@ -2,32 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HAMAZIK Audio Intelligence — Key, Scale, Pitch & Tempo Analyzer</title>
-<meta name="description" content="HAMAZIK Audio Intelligence is a professional browser-based music analyzer for detecting musical key, major/minor scale, pitch, notes, tempo, time signature and more.">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<link rel="canonical" href="https://pratimdutta0000-ux.github.io/hamazik-audio-intelligence/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="HAMAZIK Audio Intelligence — Music Analyzer">
-<meta property="og:description" content="Analyze songs directly in your browser: key, scale, pitch, notes, tempo and more.">
-<meta property="og:url" content="https://pratimdutta0000-ux.github.io/hamazik-audio-intelligence/">
-<meta property="og:site_name" content="HAMAZIK Audio Intelligence">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HAMAZIK Audio Intelligence — Music Analyzer">
-<meta name="twitter:description" content="Browser-based audio analysis by HAMAZIK. Detect key, scale, pitch, notes, tempo and more.">
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebApplication",
-  "name":"HAMAZIK Audio Intelligence",
-  "url":"https://pratimdutta0000-ux.github.io/hamazik-audio-intelligence/",
-  "description":"Browser-based music analyzer for detecting musical key, scale, pitch, notes, tempo and time signature.",
-  "applicationCategory":"MultimediaApplication",
-  "operatingSystem":"Web Browser",
-  "browserRequirements":"Requires JavaScript and microphone/audio file support",
-  "author":{"@type":"Person","name":"HAMAZIK"},
-  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}
-}
-</script>
+<title>Note Scale Finder Pro</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 *{box-sizing:border-box}
@@ -65,11 +40,6 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px so
 .footer{text-align:center;color:#555f70;font-size:10px;margin-top:28px;letter-spacing:.08em}
 @media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:27px}.topbar{height:55px}}
 </style>
-
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#07090d">
-<meta name="description" content="HAMAZIK Audio Intelligence — browser-based song key, scale, pitch, tempo and note analysis.">
-<link rel="apple-touch-icon" href="icon.svg">
 </head>
 <body>
 <div class="wrap">
@@ -152,11 +122,28 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px so
 </div>
 <script>
 const $=id=>document.getElementById(id), N=["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-const MODES={
-"Major":[0,2,4,5,7,9,11],"Natural Minor":[0,2,3,5,7,8,10],"Dorian":[0,2,3,5,7,9,10],
-"Phrygian":[0,1,3,5,7,8,10],"Lydian":[0,2,4,6,7,9,11],"Mixolydian":[0,2,4,5,7,9,10],
-"Harmonic Minor":[0,2,3,5,7,8,11]
+const SCALE_LIBRARY={
+"Major":[0,2,4,5,7,9,11],"Ionian":[0,2,4,5,7,9,11],"Natural Minor":[0,2,3,5,7,8,10],"Aeolian":[0,2,3,5,7,8,10],"Harmonic Minor":[0,2,3,5,7,8,11],"Melodic Minor":[0,2,3,5,7,9,11],
+"Dorian":[0,2,3,5,7,9,10],"Phrygian":[0,1,3,5,7,8,10],"Lydian":[0,2,4,6,7,9,11],"Mixolydian":[0,2,4,5,7,9,10],"Locrian":[0,1,3,5,6,8,10],
+"Harmonic Major":[0,2,4,5,7,8,11],"Double Harmonic Major":[0,1,4,5,7,8,11],"Hungarian Minor":[0,2,3,6,7,8,11],"Hungarian Major":[0,3,4,6,7,9,10],"Neapolitan Minor":[0,1,3,5,7,8,11],"Neapolitan Major":[0,1,3,5,7,9,11],
+"Romanian Minor":[0,2,3,6,7,9,10],"Ukrainian Dorian":[0,2,3,6,7,9,10],"Persian":[0,1,4,5,6,8,11],"Enigmatic":[0,1,4,6,8,10,11],"Prometheus":[0,2,4,6,9,10],"Whole Tone":[0,2,4,6,8,10],"Chromatic":[0,1,2,3,4,5,6,7,8,9,10,11],
+"Major Pentatonic":[0,2,4,7,9],"Minor Pentatonic":[0,3,5,7,10],"Blues":[0,3,5,6,7,10],"Egyptian Pentatonic":[0,2,5,7,10],"Hirajoshi":[0,2,3,7,8],"In Sen":[0,1,5,7,10],"Yo":[0,2,5,7,9],"Iwato":[0,1,5,6,10],"Kumoi":[0,2,3,7,9],"Pelog":[0,1,3,7,8],
+"Major Bebop":[0,2,4,5,7,8,9,11],"Dominant Bebop":[0,2,4,5,7,9,10,11],"Minor Bebop":[0,2,3,4,5,7,9,10],"Dorian Bebop":[0,2,3,4,5,7,9,10],"Blues Bebop":[0,2,3,4,5,7,9,10,11],
+"Diminished Whole-Half":[0,1,3,4,6,7,9,10],"Diminished Half-Whole":[0,1,2,4,5,7,8,10,11],"Augmented":[0,3,4,7,8,11],"Messiaen Mode 2":[0,1,3,4,6,7,9,10],"Messiaen Mode 3":[0,2,3,4,6,7,8,10,11],"Messiaen Mode 4":[0,1,2,5,6,7,8,10],"Messiaen Mode 5":[0,1,5,6,7,11],"Messiaen Mode 6":[0,2,4,5,6,8,10,11],"Messiaen Mode 7":[0,1,2,3,5,6,7,9,10,11],
+"Tritone":[0,1,4,6,7,10],"Six-Tone Symmetric":[0,1,4,5,8,9],"Acoustic":[0,2,4,6,7,9,10],"Altered":[0,1,3,4,6,8,10],"Super Locrian":[0,1,3,4,6,8,10],"Lydian Dominant":[0,2,4,6,7,9,10],"Mixolydian b6":[0,2,4,5,7,8,10],"Dorian b2":[0,1,3,5,7,9,10],"Phrygian Dominant":[0,1,4,5,7,8,10],"Lydian Augmented":[0,2,4,6,8,9,11],"Lydian #5":[0,2,4,6,8,9,11],"Locrian Natural 6":[0,1,3,5,6,8,9],
+"Spanish 8-Tone":[0,1,3,4,5,6,8,10],"Gypsy":[0,2,3,6,7,8,11],"Byzantine":[0,1,4,5,7,8,11],"Arabian":[0,2,4,5,6,8,10],"Balinese":[0,1,3,7,8],"Chinese":[0,2,4,7,9],"Mongolian":[0,2,4,7,9],"Japanese":[0,1,5,7,8],"Japanese Kumoi":[0,2,3,7,9],"Japanese Iwato":[0,1,5,6,10],
+"Hindustani Bhairav":[0,1,4,5,7,8,11],"Hindustani Kafi":[0,2,3,5,7,9,10],"Hindustani Kalyan":[0,2,4,6,7,9,11],"Hindustani Marwa":[0,1,4,6,7,9,11],"Hindustani Poorvi":[0,1,4,6,7,8,11],"Hindustani Todi":[0,1,3,6,7,8,11],"Hindustani Asavari":[0,2,3,5,7,8,10],"Hindustani Bhupali":[0,2,4,7,9],"Hindustani Durga":[0,2,5,7,10],"Hindustani Yaman":[0,2,4,6,7,9,11],
+"Carnatic Mayamalavagowla":[0,1,4,5,7,8,11],"Carnatic Sankarabharanam":[0,2,4,5,7,9,11],"Carnatic Kalyani":[0,2,4,6,7,9,11],"Carnatic Todi":[0,1,3,6,7,8,11],"Carnatic Hanumatodi":[0,1,3,5,7,8,11],"Carnatic Keeravani":[0,2,3,5,7,8,11],"Carnatic Harikambhoji":[0,2,4,5,7,9,10],"Carnatic Natabhairavi":[0,2,3,5,7,8,10],
+"Eight-Tone Octatonic":[0,1,3,4,6,7,9,10],"Acoustic Hexatonic":[0,2,4,6,7,10],"Prometheus Liszt":[0,2,4,6,9,10],"Balinese Pelog":[0,1,3,7,8],"Ritusen":[0,2,5,7,9],"Maqam Hijaz":[0,1,4,5,7,8,10],"Maqam Nahawand":[0,2,3,5,7,8,11],"Maqam Rast":[0,2,3,5,7,9,10]
 };
+// Remove exact duplicate pitch sets from the candidate library while retaining
+// the first, most familiar name. A 12-TET browser detector cannot distinguish
+// two traditions that use the same twelve pitch classes.
+const SCALE_ENTRIES=[];const SCALE_SEEN=new Map();
+for(const [name,intervals] of Object.entries(SCALE_LIBRARY)){
+ const key=intervals.join(','); if(!SCALE_SEEN.has(key)){const e={name,intervals};SCALE_SEEN.set(key,e);SCALE_ENTRIES.push(e)}
+}
+const MINOR_NAMES=new Set(["Natural Minor","Aeolian","Harmonic Minor","Melodic Minor"]);
 let AC,buf,frames=[],notes=[],fileName="",detectedBpm=120,detectedMeter="4/4";
 
 $("file").onchange=async e=>{if(e.target.files[0])load(e.target.files[0])};
@@ -189,15 +176,22 @@ function analyze(b){
  frames=[];let chroma=new Float64Array(12),count=Math.max(1,Math.floor((x.length-win)/hop)+1);
  for(let i=0;i<count;i++){
    let p=i*hop,a=x.subarray(p,p+win),r=rms(a);
-   if(r>.004){let f=yin(a,sr),A=+$("tuning").value||440;
+   if(r>.004){let f=yin(a,sr),A=+$('tuning').value||440;
      if(f){let m=69+12*Math.log2(f/A),mi=Math.round(m),pc=((mi%12)+12)%12,er=yinErr(a,sr,f),cf=Math.max(0,Math.min(1,1-er));
-       let cents=(m-mi)*100;frames.push({t:p/sr,f,m,mi,pc,cents,cf,r});chroma[pc]+=r*cf}
+       let cents=(m-mi)*100;frames.push({t:p/sr,f,m,mi,pc,cents,cf,r});
+       // Harmonic pitch-class accumulation: the fundamental gets the most weight,
+       // but upper harmonics also contribute to the tonal profile.
+       for(let h=1;h<=8;h++){const hpc=((pc+Math.round(12*Math.log2(h)))%12+12)%12;chroma[hpc]+=r*cf*(1/(h**0.72))}
+     }
    }
-   if(i%10===0)$("bar").style.width=(100*i/count).toFixed(1)+"%";
+   if(i%10===0)$('bar').style.width=(100*i/count).toFixed(1)+'%';
  }
- const k=keyDetect(chroma);$("key").textContent=N[k.root]+(k.tonality==="Minor"?" Minor":" Major");$("scale").textContent=k.mode;$("kconf").textContent=Math.round(k.score*100)+"%";
- $("frames").textContent=frames.length;detectNotes();prepareSpectrum();drawTimeline();estimateRhythm(x,sr);$("midi").disabled=!notes.length;
- $("status").innerHTML=`<span>Scan complete — ${frames.length} voiced pitch frames</span><span>${fileName}</span>`;
+ const k=keyDetect(chroma);
+ $('key').textContent=N[k.root]+' '+k.displayMode;
+ $('scale').textContent=k.name;
+ $('kconf').textContent=k.confidence+'%';
+ $('frames').textContent=frames.length;detectNotes();prepareSpectrum();drawTimeline();estimateRhythm(x,sr);$('midi').disabled=!notes.length;
+ $('status').innerHTML=`<span>Scan complete — ${frames.length} voiced pitch frames</span><span>${fileName}</span>`;
  if(frames[0])showPitch(frames[0]);
 }
 function rms(a){let s=0;for(let v of a)s+=v*v;return Math.sqrt(s/a.length)}
@@ -207,14 +201,44 @@ function yin(a,sr){
  return best&&bv<.7?sr/best:0
 }
 function yinErr(a,sr,f){let l=Math.round(sr/f),d=0,n=0;if(l<1)return 1;for(let i=0;i<a.length-l;i++){let q=a[i]-a[i+l];d+=q*q;n+=a[i]*a[i]}return Math.min(1,d/(n||1))}
+// Scale/key detector. It scores every named 12-TET scale against the
+// harmonic pitch-class profile, with tonic, fifth, coverage, and characteristic
+// degree weighting. This is substantially more robust than a simple in/out test.
+function pearson(a,b){
+ let sa=0,sb=0;for(let i=0;i<12;i++){sa+=a[i];sb+=b[i]}
+ const ma=sa/12,mb=sb/12;let num=0,da=0,db=0;
+ for(let i=0;i<12;i++){const x=a[i]-ma,y=b[i]-mb;num+=x*y;da+=x*x;db+=y*y}
+ return num/Math.sqrt((da||1)*(db||1));
+}
+function rotateProfile(intervals,root){const s=new Set(intervals.map(v=>(root+v)%12));return Array.from({length:12},(_,i)=>s.has(i)?1:0)}
+function scaleScore(h,intervals,root){
+ const mask=rotateProfile(intervals,root), tones=intervals.length;
+ let inE=0,outE=0;for(let i=0;i<12;i++)mask[i]?inE+=h[i]:outE+=h[i];
+ const coverage=inE/(inE+outE+1e-9);
+ const corr=pearson(h,mask);
+ const tonic=h[root]||0,fifth=h[(root+7)%12]||0;
+ // Penalize unsupported chromatic energy, reward tonic/fifth, and use a mild
+ // complexity prior so an unnecessarily large scale does not always win.
+ return corr*.58+coverage*.32+Math.min(.07,tonic*.45)+Math.min(.03,fifth*.16)-Math.max(0,tones-8)*.004;
+}
 function keyDetect(c){
- let best={score:0,root:0,mode:"Major"};
- for(let r=0;r<12;r++)for(const [m,intv] of Object.entries(MODES)){let ins=0,out=0,set=new Set(intv.map(v=>(r+v)%12));for(let i=0;i<12;i++)set.has(i)?ins+=c[i]:out+=c[i];let s=ins/(ins+out+1e-9)*.75+(c[r]/(Math.max(...c)+1e-9))*.25;if(s>best.score)best={score:s,root:r,mode:m}}
- // The detailed Scale / Mode remains the detected mode. Key is intentionally reduced
- // to the broad major/minor tonality used for practical song-key labeling.
- const modeIntervals=MODES[best.mode]||[];
- best.tonality=(modeIntervals[3]===3?"Minor":"Major");
- return best
+ const total=c.reduce((a,v)=>a+v,0)||1;const h=c.map(v=>v/total);
+ const candidates=[];
+ for(const entry of SCALE_ENTRIES)for(let r=0;r<12;r++){
+   const score=scaleScore(h,entry.intervals,r);
+   candidates.push({score,root:r,name:entry.name,intervals:entry.intervals});
+ }
+ candidates.sort((a,b)=>b.score-a.score);
+ const best=candidates[0],second=candidates[1]||best;
+ const margin=Math.max(0,best.score-second.score);
+ // Confidence is deliberately conservative. Similar scales/modes and ambiguous
+ // songs should report lower confidence instead of pretending to know exactly.
+ const confidence=Math.round(clamp(.45+margin*4.5+Math.max(0,best.score)*.45,0,.99)*100);
+ best.confidence=confidence;best.margin=margin;
+ const minor=MINOR_NAMES.has(best.name);
+ best.displayMode=(minor?'Minor':best.name);
+ // Familiar key wording for the common scales; modes retain their actual mode.
+ return best;
 }
 function detectNotes(){
  notes=[];if(!frames.length)return;let cur=null;
@@ -312,5 +336,4 @@ function downloadMIDI(ns,bpm){
 }
 function fmt(s){let m=Math.floor(s/60),x=(s%60).toFixed(2);return String(m).padStart(2,"0")+":"+String(x).padStart(5,"0")}
 </script>
-<script>if('serviceWorker' in navigator && location.protocol !== 'file:'){navigator.serviceWorker.register('sw.js').catch(()=>{});}</script>
 </body></html>
