@@ -25,8 +25,8 @@ input[type=file]{display:none}
 .status{display:flex;justify-content:space-between;gap:10px;color:#98a1b0;font-size:12px;margin-top:11px}.progress{height:5px;background:#252b35;border-radius:10px;overflow:hidden;margin-top:9px}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 .section-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px}.section-title h3{font-family:"Space Grotesk";margin:0;font-size:15px}.section-title span{font-size:10px;color:#70798a;text-transform:uppercase;letter-spacing:.12em}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.metric{background:#0b0f15;border:1px solid #222a35;border-radius:12px;padding:13px;position:relative;overflow:hidden}.metric:first-child,.metric:nth-child(2){background:linear-gradient(135deg,rgba(139,92,246,.13),rgba(10,14,20,.9))}
-.label{font-size:10px;color:#737d8e;letter-spacing:.08em;text-transform:uppercase}.value{font-family:"Space Grotesk";font-size:21px;font-weight:700;margin-top:5px}.metric.wide{grid-column:span 2}.subvalue{font-size:11px;color:#9da6b5;line-height:1.45;margin-top:6px}.scale-detail{font-size:11px;color:#9da6b5;line-height:1.45;margin-top:5px}.meterline{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#cbd2dc;margin-top:7px}.meterline b{color:#fff}.dualbar{height:7px;border-radius:99px;background:#202631;overflow:hidden;margin-top:6px;display:flex}.dualbar .major{background:#8b5cf6;height:100%}.dualbar .minor{background:#22d3ee;height:100%}.chord-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.chord-pill{padding:6px 9px;border:1px solid #303847;border-radius:999px;background:#0b0f15;color:#e5e9f0;font-size:11px;font-weight:700}
- .chord-panel{min-width:0}.chord-roll-wrap{margin-top:9px;overflow-x:auto;border:1px solid #202631;border-radius:10px;background:#070a0f}.chord-roll-wrap canvas{display:block;width:100%;min-width:720px;height:250px;border:0;border-radius:0}.chord-roll-status{font-size:11px;color:#8f99aa;margin-top:7px}
+.label{font-size:10px;color:#737d8e;letter-spacing:.08em;text-transform:uppercase}.value{font-family:"Space Grotesk";font-size:21px;font-weight:700;margin-top:5px}.metric.wide{grid-column:span 2} .alternative-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}.alternative-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid #2b3442;border-radius:8px;background:rgba(255,255,255,.025);font-size:11px;color:#cbd3df}.alternative-item em{font-style:normal;color:#7ee7f5;font-size:10px}.subvalue{font-size:11px;color:#9da6b5;line-height:1.45;margin-top:6px}.scale-detail{font-size:11px;color:#9da6b5;line-height:1.45;margin-top:5px}.meterline{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#cbd2dc;margin-top:7px}.meterline b{color:#fff}.dualbar{height:7px;border-radius:99px;background:#202631;overflow:hidden;margin-top:6px;display:flex}.dualbar .major{background:#8b5cf6;height:100%}.dualbar .minor{background:#22d3ee;height:100%}.chord-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.chord-pill{padding:6px 9px;border:1px solid #303847;border-radius:999px;background:#0b0f15;color:#e5e9f0;font-size:11px;font-weight:700}
+ .chord-panel{min-width:0}.chord-roll-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:8px}.chord-roll-tools .btn{padding:7px 10px;font-size:11px}.chord-roll-wrap{margin-top:9px;overflow-x:auto;border:1px solid #202631;border-radius:10px;background:#070a0f;scrollbar-color:#3b4555 #0b0f15}.chord-roll-wrap canvas{display:block;width:auto;min-width:720px;height:250px;border:0;border-radius:0;cursor:pointer}.chord-roll-status{font-size:11px;color:#8f99aa;margin-top:7px}
 canvas{width:100%;height:260px;background:#090c11;border:1px solid #202631;border-radius:11px}
 .timeline-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:10px}
 .timeline-tools .btn{padding:7px 10px;font-size:11px}
@@ -39,8 +39,9 @@ canvas{width:100%;height:260px;background:#090c11;border:1px solid #202631;borde
 table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px solid #222934;text-align:left;font-size:12px}th{color:#737d8e;font-size:10px;text-transform:uppercase;letter-spacing:.07em}td{color:#d5dae3}
 .note{font-size:11px;color:#858e9e;line-height:1.55}.pill{display:inline-block;padding:5px 8px;border:1px solid #303847;border-radius:99px;font-size:10px;color:#aab3c1}
 .footer{text-align:center;color:#555f70;font-size:10px;margin-top:28px;letter-spacing:.08em}
-@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:27px}.topbar{height:55px}}
-</style>
+.mascot-zone{display:flex;align-items:center;gap:14px;margin-top:12px;padding:8px 12px 8px 8px;border:1px solid #2b3442;border-radius:14px;background:linear-gradient(135deg,rgba(245,166,35,.055),rgba(34,211,238,.045));min-height:104px;overflow:hidden}.mascot{position:relative;width:96px;height:96px;flex:0 0 96px;display:grid;place-items:center}.mascot-svg{width:96px;height:96px;filter:drop-shadow(0 8px 12px rgba(0,0,0,.38));transform-origin:50% 72%;overflow:visible}.mascot .glow{position:absolute;inset:13px;border-radius:50%;background:radial-gradient(circle,rgba(245,166,35,.13),transparent 68%);z-index:-1}.mascot-copy{min-width:0}.mascot-title{font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.04em}.mascot-state{font-size:10px;color:#858e9e;margin-top:3px;line-height:1.35}.mascot-wave{display:flex;align-items:flex-end;gap:2px;height:12px;margin-top:7px}.mascot-wave i{display:block;width:3px;height:5px;border-radius:3px;background:linear-gradient(180deg,#22d3ee,#f6a623);animation:wave .8s ease-in-out infinite}.mascot-wave i:nth-child(2){animation-delay:.1s}.mascot-wave i:nth-child(3){animation-delay:.2s}.mascot-wave i:nth-child(4){animation-delay:.3s}.mascot-wave i:nth-child(5){animation-delay:.4s}@keyframes wave{0%,100%{height:4px;opacity:.55}50%{height:12px;opacity:1}}.mascot[data-state="idle"] .mascot-svg{animation:mascotIdle 3.2s ease-in-out infinite}.mascot[data-state="listening"] .mascot-svg{animation:mascotListen 1.8s ease-in-out infinite}.mascot[data-state="analyzing"] .mascot-svg{animation:mascotListen .95s ease-in-out infinite}.mascot[data-state="found"] .mascot-svg{animation:mascotFound 3.4s ease-in-out infinite}.mascot[data-state="playing"] .mascot-svg{animation:mascotDance var(--mascot-beat, .5s) ease-in-out infinite}.mascot[data-state="playing"] .mascot-feet{animation:footDance calc(var(--mascot-beat, .5s) / 2) ease-in-out infinite alternate;transform-origin:60px 100px}.mascot[data-state="playing"] .mascot-note{animation:noteDance calc(var(--mascot-beat, .5s) * .75) ease-in-out infinite}.mascot[data-state="playing"] .mascot-mouth{animation:smileNatural 1.35s ease-in-out infinite;transform-box:fill-box;transform-origin:center;stroke-width:3.2}.mascot[data-state="playing"] .mascot-wave{opacity:1}.mascot[data-state="found"] .mascot-note{animation:noteBob 2.2s ease-in-out infinite}.mascot[data-state="found"] .mascot-eyes{animation-duration:4.5s}50%{transform:translateY(-1.5px) scale(1.16)}}@keyframes smileNatural{0%,100%{transform:scaleY(1) scaleX(1)}25%{transform:scaleY(1.015) scaleX(1.012)}50%{transform:scaleY(1.035) scaleX(1.025)}75%{transform:scaleY(1.015) scaleX(1.012)}}50%{opacity:.55;transform:scale(1.12)}}@keyframes mascotFound{0%,100%{transform:translateY(1px) rotate(-1deg)}50%{transform:translateY(-2px) rotate(1deg)}}@keyframes mascotIdle{0%,100%{transform:translateY(1px)}50%{transform:translateY(-2px)}}@keyframes mascotListen{0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(2deg) translateY(-2px)}}@keyframes mascotWork{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}@keyframes mascotDance{0%,100%{transform:translateY(1px) rotate(-2deg)}25%{transform:translateY(-4px) rotate(4deg)}50%{transform:translateY(1px) rotate(-2deg)}75%{transform:translateY(-4px) rotate(-4deg)}}.mascot[data-state="found"] .mascot-side-pads{animation:foundSway 3.4s ease-in-out infinite;transform-origin:60px 47px}.mascot[data-state="found"] .mascot-feet{animation:foundFeet 3.4s ease-in-out infinite;transform-origin:60px 100px}.mascot[data-state="listening"] .mascot-note{animation:noteBob 1.3s ease-in-out infinite}.mascot[data-state="found"] .mascot-note{animation:noteDance .7s ease-in-out infinite}.mascot-eyes{transform-origin:60px 45px;animation:blink 4s infinite}.mascot[data-state="analyzing"] .mascot-eyes{animation-duration:2.2s}@keyframes blink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}50%{transform:scale(1.05)}}50%{transform:scale(1.65);opacity:1}}@keyframes noteBob{0%,100%{transform:translateY(1px) rotate(-3deg)}50%{transform:translateY(-4px) rotate(4deg)}}@keyframes noteDance{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-6px) rotate(10deg)}}@keyframes sideDance{from{transform:translateY(1px) rotate(-3deg)}to{transform:translateY(-2px) rotate(3deg)}}@keyframes footDance{from{transform:translateX(-1px) rotate(-2deg)}to{transform:translateX(1px) rotate(2deg)}}@keyframes foundSway{0%,100%{transform:translateY(0)}50%{transform:translateY(-1px)}}@keyframes foundFeet{0%,100%{transform:translateX(0)}50%{transform:translateX(.5px)}}.mascot[data-state="listening"] .mascot-wave{opacity:1}.mascot[data-state="analyzing"] .mascot-wave{opacity:1}.mascot[data-state="found"] .mascot-wave{opacity:.85}.alternative-list{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}.alt-chip{display:inline-flex;align-items:center;gap:4px;padding:6px 9px;border:1px solid #293343;border-radius:9px;background:#0d131c;color:#9ca7b7;font-size:10px}.alt-chip b{color:#dce3ec}.alt-chip em{font-style:normal;color:#22d3ee}.alt-chip.primary-alt{border-color:#6241b7;background:rgba(124,77,255,.09)}.alt-chip.primary-alt em{color:#63f1d0}.mascot-zone{cursor:default}
+@media(max-width:760px){.grid{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:27px}.topbar{height:55px}.mascot-zone{align-items:flex-start}.mascot{width:76px;height:76px;flex-basis:76px}.mascot-svg{width:76px;height:76px}}
+.playhead-overlay{position:absolute;top:0;bottom:0;width:2px;background:#34d399;pointer-events:none;z-index:5;will-change:transform}.playhead-overlay:before{content:"";position:absolute;top:0;left:-5px;border-left:6px solid transparent;border-right:6px solid transparent;border-top:7px solid #34d399}.chord-roll-wrap,.timeline-world{position:relative}.timeline-playhead{height:390px}.chord-playhead{height:250px}</style>
 </head>
 <body>
 <div class="wrap">
@@ -69,6 +70,57 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px so
       <select class="select" id="source"><option value="mix">Full Mix</option><option value="vocal">Vocal / Melody</option><option value="bass">Bass-focused</option><option value="perc">Percussion / Rhythm</option></select>
       <label class="tuning">REFERENCE A <input id="tuning" class="num" type="number" value="440" min="400" max="480" step=".1"> Hz</label>
     </div>
+    <div class="mascot-zone" aria-live="polite">
+      <div class="mascot" id="mascot" data-state="idle" aria-label="Hamazik music assistant">
+        <span class="glow"></span>
+        <svg class="mascot-svg" viewBox="0 0 120 120" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="botGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd45a"/><stop offset=".55" stop-color="#f6a623"/><stop offset="1" stop-color="#e47d16"/></linearGradient>
+            <linearGradient id="botGold2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#ee8e19"/></linearGradient>
+            <linearGradient id="botFace" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10283b"/><stop offset="1" stop-color="#06111d"/></linearGradient>
+          </defs>
+          <ellipse class="mascot-halo" cx="60" cy="108" rx="31" ry="5" fill="#22d3ee" opacity=".28"/>
+          <g class="mascot-dancer">
+            <!-- Reference mascot silhouette: compact body, rounded side pads, no human-like hands -->
+            <g class="mascot-side-pads">
+              <circle cx="25" cy="47" r="8" fill="url(#botGold)" stroke="#b96d13" stroke-width="2"/>
+              <circle cx="95" cy="47" r="8" fill="url(#botGold)" stroke="#b96d13" stroke-width="2"/>
+              <circle class="mascot-ear-pulse" cx="25" cy="47" r="3.2" fill="#22d3ee"/>
+              <circle class="mascot-ear-pulse-right" cx="95" cy="47" r="3.2" fill="#22d3ee"/>
+            </g>
+            <g class="mascot-body">
+              <path d="M37 69 C43 65 77 65 83 69 L88 94 C80 101 40 101 32 94 Z" fill="url(#botGold)" stroke="#b96d13" stroke-width="2.5"/>
+              <path d="M43 75 C50 78 70 78 77 75 L80 93 C71 98 49 98 40 93 Z" fill="#df8418" opacity=".58"/>
+              <circle cx="60" cy="86" r="6.2" fill="#22d3ee" stroke="#9ff6ff" stroke-width="2"/>
+              <ellipse class="mascot-belly-glint" cx="56" cy="83.5" rx="2.1" ry="1.5" fill="#dffcff" opacity=".8"/>
+            </g>
+            <g class="mascot-feet">
+              <ellipse cx="45" cy="100" rx="9" ry="5.5" fill="#e88b1c" stroke="#b96d13" stroke-width="2"/>
+              <ellipse cx="75" cy="100" rx="9" ry="5.5" fill="#e88b1c" stroke="#b96d13" stroke-width="2"/>
+            </g>
+            <g class="mascot-head">
+              <rect x="28" y="18" width="64" height="56" rx="28" fill="url(#botGold2)" stroke="#b96d13" stroke-width="2.5"/>
+              <rect x="37" y="29" width="46" height="35" rx="16" fill="url(#botFace)" stroke="#091522" stroke-width="2"/>
+              <g class="mascot-eyes" fill="#5ee7ff">
+                <ellipse cx="50" cy="45" rx="4" ry="5.5"/>
+                <ellipse cx="70" cy="45" rx="4" ry="5.5"/>
+              </g>
+              <path class="mascot-mouth" d="M49 53 Q60 64 71 53" fill="none" stroke="#5ee7ff" stroke-width="3.2" stroke-linecap="round"/>
+                            <path d="M36 25 Q60 12 84 25" fill="none" stroke="#ffd75d" stroke-width="3" opacity=".75"/>
+            </g>
+            <g class="mascot-note">
+              <path d="M104 25v16c0 5-7 7-10 3-2-4 3-7 8-5V21l10-3v5z" fill="#63f1d0" stroke="#20bfa8" stroke-width="1.5"/>
+              <circle cx="97" cy="44" r="4" fill="#63f1d0"/>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="mascot-copy">
+        <div class="mascot-title" id="mascotTitle">HAMAZIK MUSIC ASSISTANT</div>
+        <div class="mascot-state" id="mascotState">Ready — drop a track and I’ll listen.</div>
+        <div class="mascot-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
     <audio id="audio" controls style="width:100%;display:none;margin-top:13px"></audio>
     <div id="status" class="status"><span>No file selected.</span><span id="fileinfo"></span></div>
     <div class="progress"><div class="bar" id="bar"></div></div>
@@ -77,10 +129,10 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px so
   <div class="section-title"><h3>ANALYSIS</h3><span>Live results</span></div>
   <div class="grid">
     <div class="metric"><div class="label">Key</div><div class="value" id="key">—</div></div>
-    <div class="metric"><div class="label">Scale / Mode</div><div class="value" id="scale">—</div><div class="scale-detail" id="scaleDetail">—</div></div>
+    <div class="metric"><div class="label">Scale / Mode</div><div class="value" id="scale">—</div><div class="scale-detail" id="scaleDetail">—</div></div><div class="metric"><div class="label">Tonality</div><div class="value" id="tonality">—</div><div class="scale-detail">Broad major / minor interpretation</div></div><div class="metric wide alternatives"><div class="label">Alternative Candidates</div><div id="alternatives" class="alternative-list"><span>Scan a track to compare candidates.</span></div></div>
     <div class="metric"><div class="label">Key Confidence</div><div class="value" id="kconf">—</div></div>
     <div class="metric wide"><div class="label">Major / Minor Closeness</div><div class="meterline"><span>Major <b id="majorPct">—</b></span><span>Minor <b id="minorPct">—</b></span></div><div class="dualbar"><div class="major" id="majorBar" style="width:50%"></div><div class="minor" id="minorBar" style="width:50%"></div></div><div class="subvalue" id="closenessNote">Estimated tonal relationship</div></div>
-    <div class="metric wide chord-panel"><div class="label">Main Chords · Piano Roll</div><div class="chord-roll-wrap"><canvas id="chordRoll" width="900" height="250" aria-label="Detected chord piano roll"></canvas></div><div class="chord-roll-status" id="chordRollStatus">Scan a track to estimate chords.</div></div>
+    <div class="metric wide chord-panel"><div class="label">Main Chords · Piano Roll</div><div class="chord-roll-tools"><button class="btn" id="chordZoomOut" type="button">−</button><button class="btn" id="chordZoomFit" type="button">FIT</button><button class="btn primary" id="chordZoomIn" type="button">+</button><span class="zoom-readout" id="chordZoomReadout">1.0×</span><button class="btn" id="chordCenterPlayhead" type="button">CENTER PLAYHEAD</button></div><div class="chord-roll-wrap" id="chordRollWrap"><canvas id="chordRoll" width="900" height="250" aria-label="Detected chord piano roll"></canvas><div id="chordPlayhead" class="playhead-overlay chord-playhead" aria-hidden="true"></div></div><div class="chord-roll-status" id="chordRollStatus">Scan a track to estimate chords.</div></div>
     <div class="metric"><div class="label">Current Note</div><div class="value" id="cur">—</div></div>
     <div class="metric"><div class="label">Frequency</div><div class="value" id="freq">—</div></div>
     <div class="metric"><div class="label">Pitch Confidence</div><div class="value" id="pconf">—</div></div>
@@ -107,7 +159,7 @@ table{width:100%;border-collapse:collapse}th,td{padding:8px;border-bottom:1px so
       </div>
     </div>
     <div class="timeline-scroll" id="timelineScroll">
-      <div class="timeline-world" id="timelineWorld"><canvas id="timeline" width="1400" height="390"></canvas></div>
+      <div class="timeline-world" id="timelineWorld"><canvas id="timeline" width="1400" height="390"></canvas><div id="timelinePlayhead" class="playhead-overlay timeline-playhead" aria-hidden="true"></div></div>
     </div>
     <div class="timeline-hint"><span>Scroll horizontally to move through the song · Click a note or waveform to seek</span><span id="timelineRange">00:00.0 — 00:00.0</span></div>
     <div class="note" style="margin-top:9px">Zoom reveals individual note events and their pitch contour. The spectrum is a time-frequency view of the analyzed track; brighter regions indicate stronger energy.</div>
@@ -149,20 +201,45 @@ for(const [name,intervals] of Object.entries(SCALE_LIBRARY)){
 const MINOR_NAMES=new Set(["Natural Minor","Aeolian","Harmonic Minor","Melodic Minor"]);
 let AC,buf,frames=[],notes=[],fileName="",detectedBpm=120,detectedMeter="4/4";
 
+function setMascotTempo(bpm){const m=$("mascot");if(!m)return;const safe=Math.max(40,Math.min(240,Number(bpm)||120));m.style.setProperty("--mascot-bpm",safe);m.style.setProperty("--mascot-beat",(60/safe)+"s")}
+setMascotTempo(120);
+function mascotState(state,msg){const m=$("mascot"),t=$("mascotState");if(!m||!t)return;m.dataset.state=state;if(msg)t.textContent=msg}
+function mascotPlaybackState(){const a=$("audio");if(!a)return;if(a.ended){mascotState("found","Found — the musical profile is ready. Press play to hear it dance.");return}if(!a.paused){mascotState("playing","Playing — I’m moving with the track.");return}if(buf){mascotState("found","Found — I’m ready. Play the track and I’ll move with it.")}else{mascotState("idle","Ready — drop a track and I’ll listen for its notes.")}}
 $("file").onchange=async e=>{if(e.target.files[0])load(e.target.files[0])};
-$("scan").onclick=()=>buf&&analyze(buf);
-$("midi").onclick=()=>notes.length&&downloadMIDI(notes,detectedBpm);
+$("scan").onclick=()=>{if(buf){mascotState("analyzing","Analyzing pitch, rhythm and tonal information...");analyze(buf)}};
+$("midi").onclick=()=>{if(notes.length){downloadMIDI(notes,detectedBpm);mascotState("found","Found — the detected melody is ready for your DAW.")}};
 $("audio").ontimeupdate=()=>{
  if(!frames.length)return;
  const t=$("audio").currentTime;let o=frames.reduce((a,b)=>Math.abs(b.t-t)<Math.abs(a.t-t)?b:a);
  showPitch(o);
 };
+$("audio").addEventListener("play",mascotPlaybackState);
+$("audio").addEventListener("pause",mascotPlaybackState);
+$("audio").addEventListener("ended",mascotPlaybackState);
+$("audio").addEventListener("ended",()=>{drawTimeline();drawChordPianoRoll(window.lastKeyRoot??0);updateChordFollow();});
+let syncRaf=0;
+function updatePlaybackCursor(){
+  const a=$("audio"); if(!a||!buf)return;
+  const dur=Math.max(.1,buf.duration),t=clamp(a.currentTime,0,dur),ratio=t/dur;
+  const tc=$("timeline"),cc=$("chordRoll");
+  if(tc&&$("timelinePlayhead")) $("timelinePlayhead").style.transform=`translateX(${ratio*tc.width}px)`;
+  if(cc&&$("chordPlayhead")) $("chordPlayhead").style.transform=`translateX(${ratio*cc.width}px)`;
+  updateChordFollow();
+}
+function syncPlaybackVisuals(){
+  const a=$("audio"); if(!a||a.paused||a.ended){syncRaf=0;updatePlaybackCursor();return}
+  updatePlaybackCursor();
+  syncRaf=requestAnimationFrame(syncPlaybackVisuals);
+}
+$("audio").addEventListener("play",()=>{cancelAnimationFrame(syncRaf);syncRaf=requestAnimationFrame(syncPlaybackVisuals)});
+$("audio").addEventListener("pause",()=>{cancelAnimationFrame(syncRaf);syncRaf=0;updatePlaybackCursor()});
+$("audio").addEventListener("ended",()=>{cancelAnimationFrame(syncRaf);syncRaf=0;updatePlaybackCursor()});
 
 async function load(f){
- fileName=f.name;$("status").innerHTML="<span>Loading "+f.name+"…</span><span>Preparing analysis</span>";
+ fileName=f.name;mascotState("listening","Listening to "+f.name+" — preparing the audio...");$("status").innerHTML="<span>Loading "+f.name+"…</span><span>Preparing analysis</span>";
  $("audio").src=URL.createObjectURL(f);$("audio").style.display="block";
  AC=AC||new (window.AudioContext||window.webkitAudioContext)();
- try{buf=await AC.decodeAudioData(await f.arrayBuffer());$("duration").textContent=fmt(buf.duration);$("sr").textContent=buf.sampleRate+" Hz";$("scan").disabled=false;analyze(buf)}
+ try{buf=await AC.decodeAudioData(await f.arrayBuffer());$("duration").textContent=fmt(buf.duration);$("sr").textContent=buf.sampleRate+" Hz";$("scan").disabled=false;mascotState("found","Audio loaded — ready to scan. Play the track and I’ll move with it.");analyze(buf)}
  catch(e){$("status").textContent="Decode error: "+e.message}
 }
 function mono(b){let o=new Float32Array(b.length);for(let c=0;c<b.numberOfChannels;c++){let a=b.getChannelData(c);for(let i=0;i<b.length;i++)o[i]+=a[i]/b.numberOfChannels}return o}
@@ -174,33 +251,79 @@ function filtered(x,sr,mode){
  }
  return o
 }
-function analyze(b){
- const sr=b.sampleRate,x=filtered(mono(b),sr,$("source").value),win=Math.min(4096,x.length),hop=Math.floor(sr*.08);
- frames=[];let chroma=new Float64Array(12),count=Math.max(1,Math.floor((x.length-win)/hop)+1);
+function padAudio(a,n){
+ const o=new Float32Array(n),off=Math.max(0,Math.floor((n-a.length)/2));
+ o.set(a.subarray(0,Math.min(a.length,n)),off); return o;
+}
+function spectralPitch(a,sr){
+ const n=Math.min(8192,Math.max(1024,a.length)),x=a.length===n?a:padAudio(a,n);
+ let mean=0;for(let v of x)mean+=v;mean/=x.length;
+ const w=new Float32Array(n);let peak=-1,peakMag=0;
+ for(let i=0;i<n;i++){const v=(x[i]-mean)*(0.5-0.5*Math.cos(2*Math.PI*i/(n-1)));w[i]=v}
+ const maxK=Math.min(Math.floor(n/2)-1,Math.floor(1400*n/sr)),minK=Math.max(1,Math.floor(25*n/sr));
+ for(let k=minK;k<=maxK;k++){
+   let re=0,im=0;for(let i=0;i<n;i++){const a2=2*Math.PI*k*i/n;re+=w[i]*Math.cos(a2);im-=w[i]*Math.sin(a2)}
+   const mag=re*re+im*im;if(mag>peakMag){peakMag=mag;peak=k}
+ }
+ if(peak<0)return 0;
+ // Harmonic-product style refinement: favor a fundamental whose harmonics are also strong.
+ let bestF=peak*sr/n,bestScore=-Infinity;
+ for(let div=1;div<=4;div++){
+   const k=Math.round(peak/div);if(k<minK)continue;
+   let score=0;
+   for(let h=1;h<=6;h++){const kk=k*h;if(kk>=n/2)break;let re=0,im=0;for(let i=0;i<n;i++){const a2=2*Math.PI*kk*i/n;re+=w[i]*Math.cos(a2);im-=w[i]*Math.sin(a2)}score+=(re*re+im*im)/(h**1.15)}
+   if(score>bestScore){bestScore=score;bestF=k*sr/n}
+ }
+ return bestF;
+}
+async function analyze(b){
+ mascotState("analyzing","Analyzing pitch, rhythm and tonal information...");
+ const sr=b.sampleRate,x=filtered(mono(b),sr,$("source").value),duration=b.duration;
+ // Adaptive framing: short samples/one-shots get more overlap and a larger
+ // window, while long tracks keep dense temporal coverage. Duration changes
+ // analysis resolution only; it never disables real key/scale detection.
+ let win=Math.min(4096,x.length); if(duration<1.2)win=Math.min(8192,x.length);
+ if(win<512)win=x.length;
+ const hop=duration<1.2?Math.max(128,Math.floor(win*.24)):Math.max(512,Math.floor(sr*.08));
+ frames=[];let chroma=new Float64Array(12),count=Math.max(1,Math.ceil(Math.max(1,x.length-win)/hop)+1);
  for(let i=0;i<count;i++){
-   let p=i*hop,a=x.subarray(p,p+win),r=rms(a);
-   if(r>.004){let f=yin(a,sr),A=+$('tuning').value||440;
-     if(f){let m=69+12*Math.log2(f/A),mi=Math.round(m),pc=((mi%12)+12)%12,er=yinErr(a,sr,f),cf=Math.max(0,Math.min(1,1-er));
+   let p=Math.min(i*hop,Math.max(0,x.length-win)),raw=x.subarray(p,Math.min(x.length,p+win));
+   let a=raw.length<1024?padAudio(raw,2048):raw,r=rms(raw);
+   if(r>.0015){
+     let f=yin(a,sr),A=+$('tuning').value||440;
+     let ye=f?yinErr(a,sr,f):1;
+     if(!f || ye>.62)f=spectralPitch(a,sr);
+     if(f>=25&&f<=1400){
+       let m=69+12*Math.log2(f/A),mi=Math.round(m),pc=((mi%12)+12)%12,er=yinErr(a,sr,f),cf=Math.max(0,Math.min(1,1-er));
+       if(!isFinite(cf)||cf<.18)cf=.35;
        let cents=(m-mi)*100;frames.push({t:p/sr,f,m,mi,pc,cents,cf,r});
-       // Harmonic pitch-class accumulation: the fundamental gets the most weight,
-       // but upper harmonics also contribute to the tonal profile.
-       for(let h=1;h<=8;h++){const hpc=((pc+Math.round(12*Math.log2(h)))%12+12)%12;chroma[hpc]+=r*cf*(1/(h**0.72))}
+       // Chroma is built from detected fundamentals only. Adding harmonic
+       // multiples can turn an A-minor chord into an E-heavy key profile.
+       chroma[pc]+=r*cf;
      }
    }
-   if(i%10===0)$('bar').style.width=(100*i/count).toFixed(1)+'%';
+   if(i%Math.max(1,Math.floor(count/100))===0)$("bar").style.width=(100*i/count).toFixed(1)+"%";
  }
- const k=keyDetect(chroma);
- $('key').textContent=N[k.root];
- $('scale').textContent=k.name;
- $('scaleDetail').textContent=k.description;
- $('majorPct').textContent=k.majorMinor.major+'%'; $('minorPct').textContent=k.majorMinor.minor+'%';
- $('majorBar').style.width=k.majorMinor.major+'%'; $('minorBar').style.width=k.majorMinor.minor+'%';
- $('closenessNote').textContent=k.majorMinor.major>=k.majorMinor.minor?'Closer to a major tonal profile':'Closer to a minor tonal profile';
+ const tonicHint=detectTonicEvidence(frames,chroma);
+ const k=keyDetect(chroma,tonicHint);
+ $("key").textContent=N[k.root];
+ $("scale").textContent=k.scaleName||k.name;
+ $("scaleDetail").textContent=k.scaleDescription||k.description;
+ $("tonality").textContent=k.tonality||"—";
+ const alt=$("alternatives");
+ if(alt){
+   const ranked=(k.alternatives||[]).slice(0,4);
+   alt.innerHTML=ranked.length?ranked.map(x=>`<span class="alternative-item"><b>${N[x.root]} ${x.name}</b><em>${Math.round(Math.max(0,x.score)*100)}%</em></span>`).join(""):"<span>No strong alternative interpretation.</span>";
+ }
+ $("majorPct").textContent=k.majorMinor.major+"%"; $("minorPct").textContent=k.majorMinor.minor+"%";
+ $("majorBar").style.width=k.majorMinor.major+"%"; $("minorBar").style.width=k.majorMinor.minor+"%";
+ $("closenessNote").textContent=k.majorMinor.major>=k.majorMinor.minor?"Closer to a major tonal profile":"Closer to a minor tonal profile";
  window.lastKeyRoot=k.root; renderMainChords(k.root);
- $('kconf').textContent=k.confidence+'%';
- $('frames').textContent=frames.length;detectNotes();prepareSpectrum();drawTimeline();estimateRhythm(x,sr);$('midi').disabled=!notes.length;
- $('status').innerHTML=`<span>Scan complete — ${frames.length} voiced pitch frames</span><span>${fileName}</span>`;
+ $("kconf").textContent=k.confidence+"%";
+ $("frames").textContent=frames.length;detectNotes();prepareSpectrum();drawTimeline();estimateRhythm(x,sr);$("midi").disabled=!notes.length;
+ $("status").innerHTML=`<span>Scan complete — ${frames.length} voiced pitch frames</span><span>${fileName}</span>`;
  if(frames[0])showPitch(frames[0]);
+ mascotState("found","Found — key, scale, notes and timing are ready. Play the track and I’ll move with it.");
 }
 function rms(a){let s=0;for(let v of a)s+=v*v;return Math.sqrt(s/a.length)}
 function yin(a,sr){
@@ -281,28 +404,97 @@ function majorMinorCloseness(h,root){
  const maj=cosine(h,major), min=cosine(h,minor), em=Math.exp(maj*5), en=Math.exp(min*5), sum=em+en;
  return {major:Math.round(em/sum*100),minor:Math.round(en/sum*100)};
 }
-function keyDetect(c){
- const total=c.reduce((a,v)=>a+v,0)||1;const h=c.map(v=>v/total);
+function detectTonicEvidence(fs,chroma){
+ const low=new Float64Array(12),dur=new Float64Array(12),first=new Float64Array(12),last=new Float64Array(12);
+ if(fs.length){
+   const firstT=fs[0].t,lastT=fs[fs.length-1].t;
+   for(const f of fs){
+     const w=Math.max(.05,f.r*f.cf);
+     dur[f.pc]+=w;
+     if(f.f<210) low[f.pc]+=w*(1+Math.max(0,210-f.f)/210);
+     if(f.t<firstT+Math.max(1,(lastT-firstT)*.18)) first[f.pc]+=w;
+     if(f.t>lastT-Math.max(1,(lastT-firstT)*.18)) last[f.pc]+=w;
+   }
+ }
+ // Harmonic/chord evidence: find the most plausible local chord roots, then
+ // use their consensus as a tonic prior. This fixes the common case where the
+ // fifth (e.g. E in an A-minor chord) has more raw energy than the root.
+ let chordRoot=new Float64Array(12);
+ if(fs.length&&buf){
+   const durSong=buf.duration||0,win=Math.max(.7,Math.min(2.0,durSong/8)),hop=Math.max(.35,win*.55);
+   for(let start=0;start<durSong;start+=hop){
+     const h=new Float64Array(12);let bassPc=-1,bassEnergy=-Infinity,n=0;
+     for(const f of fs){if(f.t>=start&&f.t<Math.min(durSong,start+win)&&f.cf>.35){const w=f.r*f.cf;h[f.pc]+=w;n++;if(f.f<190&&w>bassEnergy){bassEnergy=w;bassPc=f.pc}}}
+     if(n<2)continue;
+     let best=null;
+     for(let r=0;r<12;r++)for(const type of ['maj','min','dom7','maj7','min7','sus2','sus4','dim']){const sc=chordScore(h,r,type,bassPc);if(!best||sc>best.score)best={root:r,score:sc}}
+     if(best&&best.score>.12)chordRoot[best.root]+=Math.max(.2,best.score)*Math.max(.25,hop);
+   }
+ }
+ let bestRoot=0,best=-Infinity;
+ for(let r=0;r<12;r++){
+   const score=(low[r]*.48)+(chordRoot[r]*.34)+(dur[r]*.12)+(first[r]*.03)+(last[r]*.03);
+   if(score>best){best=score;bestRoot=r}
+ }
+ const total=chroma.reduce((a,v)=>a+v,0)||1;
+ const strength=best>0?best/(low.reduce((a,v)=>a+v,0)*.48+chordRoot.reduce((a,v)=>a+v,0)*.34+dur.reduce((a,v)=>a+v,0)*.12+first.reduce((a,v)=>a+v,0)*.03+last.reduce((a,v)=>a+v,0)*.03+1e-9):0;
+ return {root:bestRoot,strength:clamp(strength,0,1),chordRoot};
+}
+function keyDetect(c,tonicHint){
+ const total=c.reduce((a,v)=>a+v,0)||1,h=c.map(v=>v/total);
+ const conventional=[
+  {name:"Major",intervals:SCALE_LIBRARY["Major"],tonality:"Major"},
+  {name:"Natural Minor",intervals:SCALE_LIBRARY["Natural Minor"],tonality:"Minor"},
+  {name:"Harmonic Minor",intervals:SCALE_LIBRARY["Harmonic Minor"],tonality:"Minor"},
+  {name:"Melodic Minor",intervals:SCALE_LIBRARY["Melodic Minor"],tonality:"Minor"}
+ ];
+ const modes=["Dorian","Phrygian","Lydian","Mixolydian","Locrian","Harmonic Major","Double Harmonic Major","Hungarian Minor","Romanian Minor","Acoustic","Lydian Dominant","Mixolydian b6","Dorian b2","Phrygian Dominant","Lydian Augmented","Altered","Super Locrian"];
  const candidates=[];
- for(const entry of SCALE_ENTRIES)for(let r=0;r<12;r++){
-   const score=scaleScore(h,entry.intervals,r);
-   candidates.push({score,root:r,name:entry.name,intervals:entry.intervals});
+ const rootPrior=(r,base)=>{if(!tonicHint)return base;const d=((r-tonicHint.root+6)%12)-6;return base+Math.exp(-(d*d)/3.8)*.30*tonicHint.strength};
+ for(const entry of conventional)for(let r=0;r<12;r++)candidates.push({score:rootPrior(r,scaleScore(h,entry.intervals,r)),root:r,name:entry.name,intervals:entry.intervals,tonality:entry.tonality,kind:"conventional"});
+ for(const name of modes)for(let r=0;r<12;r++){const intervals=SCALE_LIBRARY[name];if(intervals)candidates.push({score:rootPrior(r,scaleScore(h,intervals,r)-.012),root:r,name,intervals,tonality:/Minor|Dorian|Phrygian|Locrian/.test(name)?"Minor":"Major",kind:"mode"})}
+ // Require characteristic degrees before selecting specialized scales. A plain
+ // minor chord cannot legitimately be promoted to melodic/harmonic minor.
+ for(const q of candidates){const r=q.root,b3=h[(r+3)%12]||0,b6=h[(r+8)%12]||0,n6=h[(r+9)%12]||0,b7=h[(r+10)%12]||0,n7=h[(r+11)%12]||0,maj3=h[(r+4)%12]||0;
+  if(q.name==="Melodic Minor" && (n6<.055||n7<.055||b3<.025))q.score-=.20;
+  if(q.name==="Harmonic Minor" && (n7<.055||b6<.025||b3<.025))q.score-=.17;
+  if(q.name==="Dorian" && (b3<.04||n6<.04))q.score-=.10;
+  if(q.name==="Mixolydian" && (maj3<.04||b7<.04))q.score-=.10;
  }
  candidates.sort((a,b)=>b.score-a.score);
- const best=candidates[0],second=candidates[1]||best;
- const margin=Math.max(0,best.score-second.score);
- const confidence=Math.round(clamp(.45+margin*4.5+Math.max(0,best.score)*.45,0,.99)*100);
- best.confidence=confidence;best.margin=margin;
- best.description=scaleDescription(best.name,best.intervals);
- best.majorMinor=majorMinorCloseness(h,best.root);
- return best;
+ const bestRaw=candidates[0],bestConv=candidates.filter(x=>x.kind==="conventional").sort((a,b)=>b.score-a.score)[0];
+ const chosen=(bestRaw.kind==="mode"&&bestRaw.score-bestConv.score>.09)?bestRaw:bestConv;
+ const alternatives=[];const seen=new Set();for(const x of candidates){const id=x.root+"|"+x.name;if(seen.has(id)||id===chosen.root+"|"+chosen.name)continue;seen.add(id);alternatives.push(x);if(alternatives.length>=5)break}
+ const runner=candidates.find(x=>x.root!==chosen.root||x.name!==chosen.name)||chosen,margin=Math.max(0,chosen.score-runner.score);
+ const confidence=Math.round(clamp(.50+margin*3.8+Math.max(0,chosen.score)*.40,0,.99)*100);
+ const broadMajor=scaleScore(h,SCALE_LIBRARY["Major"],chosen.root),broadMinor=scaleScore(h,SCALE_LIBRARY["Natural Minor"],chosen.root),ex=Math.exp(broadMajor*5),ey=Math.exp(broadMinor*5),sum=ex+ey;
+ chosen.confidence=confidence;chosen.margin=margin;chosen.scaleName=chosen.name;chosen.scaleDescription=scaleDescriptionFor(chosen.name,chosen.intervals);chosen.majorMinor={major:Math.round(ex/sum*100),minor:Math.round(ey/sum*100)};chosen.alternatives=alternatives;return chosen;
+}
+function scaleDescriptionFor(name,intervals){
+ if(name==="Major")return "Major scale (Ionian)";
+ if(name==="Natural Minor")return "Natural minor (Aeolian)";
+ if(name==="Harmonic Minor")return "Minor scale with raised 7th";
+ if(name==="Melodic Minor")return "Minor scale with raised 6th and 7th";
+ return scaleDescription(name,intervals);
 }
 function chordTemplate(root,type){
  const sets={maj:[0,4,7],min:[0,3,7],dim:[0,3,6],sus2:[0,2,7],sus4:[0,5,7],dom7:[0,4,7,10],maj7:[0,4,7,11],min7:[0,3,7,10]};
  return sets[type].map(x=>(root+x)%12);
 }
-function chordScore(h,root,type){
- const pcs=chordTemplate(root,type),set=new Set(pcs);let inE=0,outE=0;for(let i=0;i<12;i++)set.has(i)?inE+=h[i]:outE+=h[i];return inE/(inE+outE+1e-9)-outE*.18;
+function chordScore(h,root,type,bass){
+ const pcs=chordTemplate(root,type),set=new Set(pcs);
+ let total=0,inE=0,outE=0;
+ for(let i=0;i<12;i++){total+=h[i];set.has(i)?inE+=h[i]:outE+=h[i]}
+ if(!total)return -999;
+ const rootE=h[root]/total;
+ const thirdPc=(type==='min'||type==='min7')?(root+3)%12:(type==='dim'?(root+3)%12:(type==='sus2'?(root+2)%12:(type==='sus4'?(root+5)%12:(root+4)%12)));
+ const fifthPc=(root+7)%12;
+ const thirdE=h[thirdPc]/total, fifthE=h[fifthPc]/total;
+ // A real chord root should explain the fundamental and the third/fifth.
+ // Bass evidence is especially useful for guitar chords: Am should favor A2
+ // over its relative-key candidate Em when the low A is actually present.
+ const bassBoost=(bass===root)?0.42:(bass>=0? -0.08:0);
+ return (inE/total) - (outE/total)*.28 + rootE*.48 + thirdE*.28 + fifthE*.18 + bassBoost;
 }
 function chordPianoCandidates(keyRoot){
  if(!frames.length||!buf)return [];
@@ -310,11 +502,19 @@ function chordPianoCandidates(keyRoot){
  const dur=buf.duration||0, win=Math.max(.7,Math.min(2.0,dur/8)), hop=Math.max(.35,win*.55), out=[];
  for(let start=0;start<dur;start+=hop){
    const h=new Float64Array(12);let n=0;
-   for(const f of frames){if(f.t>=start&&f.t<Math.min(dur,start+win)&&f.cf>.35){h[f.pc]+=f.r*f.cf;n++}}
+   let bassPc=-1,bassEnergy=-Infinity;
+   for(const f of frames){
+     if(f.t>=start&&f.t<Math.min(dur,start+win)&&f.cf>.35){
+       h[f.pc]+=f.r*f.cf;n++;
+       // Guitar/piano chord roots are commonly exposed by the lowest reliable
+       // pitch. Prefer the strongest low fundamental rather than a harmonic.
+       if(f.f<190){const e=f.r*f.cf;if(e>bassEnergy){bassEnergy=e;bassPc=f.pc}}
+     }
+   }
    if(n<2)continue;
    let best=null;
    for(let r=0;r<12;r++)for(const [type,suf] of types){
-     const sc=chordScore(h,r,type);
+     const sc=chordScore(h,r,type,bassPc);
      if(!best||sc>best.score)best={root:r,type,suf,score:sc,label:N[r]+suf};
    }
    if(best&&best.score>.08)out.push({start,end:Math.min(dur,start+win),...best});
@@ -324,40 +524,29 @@ function chordPianoCandidates(keyRoot){
  for(const c of out){const z=merged[merged.length-1];if(z&&z.label===c.label&&c.start-z.end<Math.max(.25,hop*.7))z.end=c.end;else merged.push({...c})}
  return merged.filter(c=>c.end-c.start>=Math.min(.35,Math.max(.18,win*.35)));
 }
+let chordZoom=1, chordRaf=0, chordFollow=true;
+function chordRollWidth(dur){return Math.max($('chordRollWrap')?.clientWidth||720,Math.round(Math.max(1,dur)*90*chordZoom))}
 function drawChordPianoRoll(keyRoot){
  const c=$('chordRoll'),status=$('chordRollStatus'); if(!c)return;
- const dur=Math.max(.1,buf?.duration||1), chords=chordPianoCandidates(keyRoot), w=Math.max(900,Math.round(Math.max(1,dur)*90)), h=250;
+ const dur=Math.max(.1,buf?.duration||1), chords=chordPianoCandidates(keyRoot), w=chordRollWidth(dur), h=250;
  c.width=w;c.height=h;c.style.width=w+'px';
  const g=c.getContext('2d');g.clearRect(0,0,w,h);g.fillStyle='#070a0f';g.fillRect(0,0,w,h);
- const lo=48,hi=84, rowH=(h-36)/(hi-lo+1), xOf=t=>t/dur*w;
+ const lo=48,hi=84,rowH=(h-36)/(hi-lo+1),xOf=t=>t/dur*w;
  g.font='10px Inter,sans-serif';
- for(let mi=lo;mi<=hi;mi++){
-   const y=28+(hi-mi)*rowH, pc=((mi%12)+12)%12, black=[1,3,6,8,10].includes(pc);
-   g.fillStyle=black?'#111722':'#0b1017';g.fillRect(0,y,w,rowH);
-   g.strokeStyle=black?'#1b2330':'#202936';g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();
-   if(!black){g.fillStyle='#687385';g.fillText(noteName(mi),6,y+rowH-3)}
- }
+ for(let mi=lo;mi<=hi;mi++){const y=28+(hi-mi)*rowH,pc=((mi%12)+12)%12,black=[1,3,6,8,10].includes(pc);g.fillStyle=black?'#111722':'#0b1017';g.fillRect(0,y,w,rowH);g.strokeStyle=black?'#1b2330':'#202936';g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();if(!black){g.fillStyle='#687385';g.fillText(noteName(mi),6,y+rowH-3)}}
  g.fillStyle='#c8ced8';g.font='700 10px Inter,sans-serif';g.fillText('PIANO ROLL · DETECTED CHORDS',8,12);
- const step=dur>45?10:dur>20?5:2;g.font='9px Inter,sans-serif';
+ const step=chordZoom>=8?.5:chordZoom>=4?1:chordZoom>=2?2:(dur>45?10:dur>20?5:2);g.font='9px Inter,sans-serif';
  for(let t=0;t<=dur;t+=step){const x=xOf(t);g.strokeStyle='#252d38';g.beginPath();g.moveTo(x,20);g.lineTo(x,h);g.stroke();g.fillStyle='#697486';g.fillText(fmtShort(t),x+3,20)}
  const pal=['#8b5cf6','#22d3ee','#34d399','#f59e0b','#f472b6','#60a5fa','#a3e635','#fb7185'];
- chords.forEach((ch,idx)=>{
-   const x=xOf(ch.start),ww=Math.max(3,xOf(ch.end)-x),color=pal[idx%pal.length];
-   const pcs=chordTemplate(ch.root,ch.type);
-   // Render a compact voicing in a useful mid-register.
-   pcs.forEach((pc,j)=>{
-     let mi=60+((pc-0+12)%12); if(mi<lo)mi+=12; if(mi>hi)mi-=12;
-     const y=28+(hi-mi)*rowH+1;
-     g.fillStyle=color;g.globalAlpha=.82;g.fillRect(x,y,ww,Math.max(5,rowH-2));g.globalAlpha=1;
-   });
-   if(ww>42){g.fillStyle='#fff';g.font='700 10px Inter,sans-serif';g.fillText(ch.label,x+4,34+(hi-60)*rowH)}
- });
- // Playback cursor
- const px=xOf($('audio').currentTime||0);g.strokeStyle='#34d399';g.lineWidth=2;g.beginPath();g.moveTo(px,20);g.lineTo(px,h);g.stroke();
+ chords.forEach((ch,idx)=>{const x=xOf(ch.start),ww=Math.max(3,xOf(ch.end)-x),color=pal[idx%pal.length],pcs=chordTemplate(ch.root,ch.type);pcs.forEach(pc=>{let mi=60+((pc%12+12)%12);if(mi<lo)mi+=12;if(mi>hi)mi-=12;const y=28+(hi-mi)*rowH+1;g.fillStyle=color;g.globalAlpha=.82;g.fillRect(x,y,ww,Math.max(5,rowH-2));g.globalAlpha=1});if(ww>42){g.fillStyle='#fff';g.font='700 10px Inter,sans-serif';g.fillText(ch.label,x+4,34+(hi-60)*rowH)}});
+ const t=$('audio').currentTime||0,px=xOf(t);g.strokeStyle='#34d399';g.lineWidth=2;g.beginPath();g.moveTo(px,20);g.lineTo(px,h);g.stroke();g.fillStyle='#34d399';g.beginPath();g.moveTo(px-5,20);g.lineTo(px+5,20);g.lineTo(px,27);g.closePath();g.fill();
  status.textContent=chords.length?`${chords.length} detected chord regions · ${[...new Set(chords.map(x=>x.label))].join(' · ')}`:'Not enough harmonic content for reliable chord estimation.';
 }
-function renderMainChords(keyRoot){drawChordPianoRoll(keyRoot)}
-
+function updateChordFollow(){const a=$('audio'),wrap=$('chordRollWrap'),c=$('chordRoll');if(!a||!wrap||!c||!buf)return;const px=(a.currentTime/Math.max(.1,buf.duration))*c.width;if(chordFollow&&!a.paused&&!a.ended){wrap.scrollLeft=clamp(px-wrap.clientWidth*.5,0,Math.max(0,c.width-wrap.clientWidth))}}
+function setChordZoom(z){const wrap=$('chordRollWrap'),oldW=$('chordRoll').width||1,oldCenter=wrap.scrollLeft+wrap.clientWidth/2;chordZoom=clamp(z,1,24);drawChordPianoRoll(window.lastKeyRoot??0);updatePlaybackCursor();const nw=$('chordRoll').width||oldW;wrap.scrollLeft=clamp((oldCenter/oldW)*nw-wrap.clientWidth/2,0,Math.max(0,nw-wrap.clientWidth));$('chordZoomReadout').textContent=chordZoom.toFixed(1)+'×'}
+function seekChordRoll(ev){if(!buf)return;const c=$('chordRoll'),r=c.getBoundingClientRect(),x=clamp(ev.clientX-r.left,0,c.width);$('audio').currentTime=x/c.width*buf.duration;chordFollow=true;drawTimeline();drawChordPianoRoll(window.lastKeyRoot??0);updateChordFollow()}
+$('chordRoll').addEventListener('click',seekChordRoll);$('chordZoomIn').onclick=()=>setChordZoom(chordZoom*1.7);$('chordZoomOut').onclick=()=>setChordZoom(chordZoom/1.7);$('chordZoomFit').onclick=()=>setChordZoom(1);$('chordCenterPlayhead').onclick=()=>{chordFollow=true;updateChordFollow()};
+function renderMainChords(keyRoot){drawChordPianoRoll(keyRoot);updateChordFollow()}
 function detectNotes(){
  notes=[];if(!frames.length)return;let cur=null;
  for(const f of frames){
@@ -424,12 +613,12 @@ function drawTimeline(){
   const t=$("audio").currentTime||0,px=xOf(t);g.strokeStyle="#34d399";g.lineWidth=2;g.beginPath();g.moveTo(px,0);g.lineTo(px,h);g.stroke();g.fillStyle="#34d399";g.beginPath();g.moveTo(px-5,0);g.lineTo(px+5,0);g.lineTo(px,7);g.closePath();g.fill();
  });
 }
-function seekFromTimeline(ev){if(!buf)return;const r=$("timeline").getBoundingClientRect(),x=clamp(ev.clientX-r.left,0,r.width);$("audio").currentTime=x/r.width*buf.duration;drawTimeline()}
+function seekFromTimeline(ev){if(!buf)return;const r=$("timeline").getBoundingClientRect(),x=clamp(ev.clientX-r.left,0,r.width);$("audio").currentTime=x/r.width*buf.duration;updatePlaybackCursor()}
 $("timeline").addEventListener("click",seekFromTimeline);
-$("audio").addEventListener("timeupdate",()=>{if(frames.length)drawChordPianoRoll(window.lastKeyRoot??0)});
+$("audio").addEventListener("timeupdate",updatePlaybackCursor);
 $("zoomIn").onclick=()=>setZoom(zoom*1.7);$("zoomOut").onclick=()=>setZoom(zoom/1.7);$("zoomFit").onclick=()=>setZoom(1);
 $("centerPlayhead").onclick=()=>{const sc=$("timelineScroll"),dur=buf?.duration||1,w=$("timeline").width;sc.scrollLeft=clamp(($("audio").currentTime/dur*w)-sc.clientWidth/2,0,Math.max(0,w-sc.clientWidth))};
-function setZoom(z){const oldW=$("timeline").width||1,sc=$("timelineScroll"),ratio=(sc.scrollLeft+sc.clientWidth/2)/oldW;zoom=clamp(z,1,24);resizeTimeline();drawTimeline();sc.scrollLeft=clamp(ratio*$("timeline").width-sc.clientWidth/2,0,Math.max(0,$("timeline").width-sc.clientWidth));$("zoomReadout").textContent=zoom.toFixed(1)+"×"}
+function setZoom(z){const oldW=$("timeline").width||1,sc=$("timelineScroll"),ratio=(sc.scrollLeft+sc.clientWidth/2)/oldW;zoom=clamp(z,1,24);resizeTimeline();drawTimeline();updatePlaybackCursor();sc.scrollLeft=clamp(ratio*$("timeline").width-sc.clientWidth/2,0,Math.max(0,$("timeline").width-sc.clientWidth));$("zoomReadout").textContent=zoom.toFixed(1)+"×"}
 function estimateRhythm(x,sr){
  // Tempo detection: onset-strength envelope + normalized autocorrelation, with half/double-time correction.
  const hop=Math.max(128,Math.floor(sr*.02)), env=[]; let prev=0;
@@ -440,7 +629,7 @@ function estimateRhythm(x,sr){
  const candidates=[best.bpm,best.bpm/2,best.bpm*2,best.bpm*2/3,best.bpm*3/2].filter(v=>v>=40&&v<=240);
  // Prefer the musically plausible candidate with strong periodic support; avoid arbitrary doubling.
  let chosen=best.bpm; let chosenScore=best.score; for(const bpm of candidates){const lag=Math.max(1,Math.round((60/bpm)/step));let a=0,b=0,c=0;for(let i=lag;i<z.length;i++){a+=z[i]*z[i-lag];b+=z[i]*z[i];c+=z[i-lag]*z[i-lag]}const sc=a/Math.sqrt((b*c)||1)+(bpm===best.bpm?0.015:0);if(sc>chosenScore){chosen=bpm;chosenScore=sc}}
- detectedBpm=Math.round(chosen); const confidence=Math.round(clamp((chosenScore+0.05)*100,0,99));
+ detectedBpm=Math.round(chosen); setMascotTempo(detectedBpm); const confidence=Math.round(clamp((chosenScore+0.05)*100,0,99));
  $("bpm").textContent=detectedBpm+" BPM"; if($("bpm").parentElement)$("bpm").parentElement.title="Estimated tempo · confidence "+confidence+"%";
  let lag=Math.max(1,Math.round((60/detectedBpm)/step)),e3=0,e4=0; for(let i=lag*2;i<z.length;i++){e4+=z[i]*z[i-lag*4]||0;e3+=z[i]*z[i-lag*3]||0} detectedMeter=e3>e4*1.08?"3/4":"4/4"; $("meter").textContent=detectedMeter;
 }
